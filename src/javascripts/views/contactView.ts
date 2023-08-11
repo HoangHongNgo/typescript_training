@@ -67,7 +67,7 @@ class ContactView {
    * Render contact infomation.
    * @param {Contact | null} contactInfo
    */
-  renderContactInfo = (contactInfo: Contact | undefined) => {
+  renderContactInfo = (contactInfo: Contact | undefined): void => {
     if (contactInfo) {
       this.infoEl.innerHTML = ContactTmpl.renderContactInfo(contactInfo);
       this.deleteBtnEl = this.infoEl.querySelector(".info__button__delete")!;
