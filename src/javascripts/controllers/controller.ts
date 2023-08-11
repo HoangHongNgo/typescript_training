@@ -1,3 +1,4 @@
+import Contact from "../models/contact";
 import Model from "../models/model";
 import View from "../views/view";
 
@@ -30,6 +31,8 @@ class Controller {
   initContacts = async (): Promise<void> => {
     await this.model.contact.init();
     this.loadListContacts();
+    this.showInfo();
+    this.view.contact.addDelegateShowInfo(this.showInfo);
   };
 
   /**
@@ -38,6 +41,16 @@ class Controller {
   loadListContacts = (): void => {
     const contactList = this.model.contact.getContactList();
     this.view.contact.renderContactList(contactList);
+  };
+
+  /**
+   * Display the contact information by contact's id or by default.
+   * @param {String} contactId
+   */
+  showInfo = async (contactId?: string) => {
+    if (contactId) this.model.contact.setContactInfo(contactId);
+    const contactInfo: Contact | undefined = this.model.contact.getContactInfo();
+    this.view.contact.renderContactInfo(contactInfo);
   };
 }
 

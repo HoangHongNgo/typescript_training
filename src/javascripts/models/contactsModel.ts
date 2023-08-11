@@ -5,7 +5,7 @@ import { IContact } from "./interfaces/contactInterface";
 class ContactsModel {
   private service: ContactService;
   private contactList: Contact[];
-  private contactInfo: Contact | null;
+  private contactInfo: Contact | undefined;
 
   /**
    * Constructor of Contacts object.
@@ -13,7 +13,7 @@ class ContactsModel {
   constructor() {
     this.service = new ContactService();
     this.contactList = [];
-    this.contactInfo = null;
+    this.contactInfo = undefined;
   }
 
   init = async (): Promise<void> => {
@@ -27,8 +27,17 @@ class ContactsModel {
     return data.map((item: IContact) => new Contact(item));
   };
 
-  getContactList = () => {
+  getContactList = (): Contact[] => {
     return this.contactList;
+  };
+
+  getContactInfo = (): Contact | undefined => {
+    return this.contactInfo;
+  };
+
+  setContactInfo = (id: string): void => {
+    const data: Contact | undefined = this.contactList.find((contact) => contact.id === id);
+    this.contactInfo = data;
   };
 }
 
