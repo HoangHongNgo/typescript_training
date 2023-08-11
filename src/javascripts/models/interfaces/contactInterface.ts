@@ -1,19 +1,19 @@
-import { RelationIFace } from "./relationInterface";
+import { IRelation } from "./relationInterface";
 
-export interface ContactFormInfoIFace {
-    id: string;
-    name: string;
-    relationId: string;
-    phone: string;
-    email: string;
-    avatar: string;
-    work: {
-        job: string;
-        company: string;
-    }
-    about: string
+export interface IContactFormInfo {
+  id: string;
+  name: string;
+  relationId: string;
+  phone: string;
+  email: string;
+  avatar: string;
+  work: {
+    job: string;
+    company: string;
+  };
+  about: string;
 }
 
-export interface ContactIFace extends ContactFormInfoIFace {
-    relation: RelationIFace;
+export interface IContact extends IContactFormInfo {
+  relation: IRelation;
 }

@@ -1,4 +1,4 @@
-export interface RelationIFace {
-    id: string;
-    name: string;
+export interface IRelation {
+  id: string;
+  name: string;
 }

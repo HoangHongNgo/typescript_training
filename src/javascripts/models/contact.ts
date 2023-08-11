@@ -1,7 +1,7 @@
-import { ContactIFace } from "./interfaces/contactInterface";
-import { RelationIFace } from "./interfaces/relationInterface";
+import { IContact } from "./interfaces/contactInterface";
+import { IRelation } from "./interfaces/relationInterface";
 
-class Contact implements ContactIFace {
+class Contact implements IContact {
   id: string;
   name: string;
   relationId: string;
@@ -13,12 +13,12 @@ class Contact implements ContactIFace {
     company: string;
   };
   about: string;
-  relation: RelationIFace;
+  relation: IRelation;
 
   /**
    * Constructor of Contact object.
    */
-  constructor({ id, name, relationId, phone, email, avatar, work, about, relation }: ContactIFace) {
+  constructor({ id, name, relationId, phone, email, avatar, work, about, relation }: IContact) {
     this.id = id;
     this.name = name;
     this.relationId = relationId;

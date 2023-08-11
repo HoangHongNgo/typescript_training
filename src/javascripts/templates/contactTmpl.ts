@@ -1,18 +1,17 @@
-import { ContactIFace } from "../models/interfaces/contactInterface";
+import Contact from "../models/contact";
 
 class ContactTmpl {
+  /**
+   * Constructor of the Template object.
+   */
+  constructor() {}
 
-    /**
-     * Constructor of the Template object.
-     */
-    constructor() { }
-
-    /**
-     * HTML Template for render an Contact object.
-     * @param {Contact} contact
-     * @returns {String} Template for rendering contact list row.
-     */
-    static renderContact = (contact: ContactIFace): string => `
+  /**
+   * HTML Template for render an Contact object.
+   * @param {Contact} contact
+   * @returns {String} Template for rendering contact list row.
+   */
+  static renderContact = (contact: Contact): string => `
         <li class="contact-item row" data-id="${contact.id}">
             <div class="contact-item__avatar col-2">
                 <img src="${contact.avatar}" alt="avatar" />
@@ -27,4 +26,4 @@ class ContactTmpl {
     `;
 }
 
-export default ContactTmpl
+export default ContactTmpl;
