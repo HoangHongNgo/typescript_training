@@ -3,8 +3,9 @@ import Contact from "./contact";
 import { IContact } from "./interfaces/contactInterface";
 
 class ContactsModel {
-  service: ContactService;
-  contactList: Contact[];
+  private service: ContactService;
+  private contactList: Contact[];
+  private contactInfo: Contact | null;
 
   /**
    * Constructor of Contacts object.
@@ -12,11 +13,13 @@ class ContactsModel {
   constructor() {
     this.service = new ContactService();
     this.contactList = [];
+    this.contactInfo = null;
   }
 
   init = async (): Promise<void> => {
     const data: IContact[] = await this.service.getList();
     this.contactList = this.parseData(data);
+    this.contactInfo = this.contactList[0];
     console.log(this.contactList);
   };
 

@@ -11,8 +11,8 @@ export class App {
   /**
    * Function for starting the App
    */
-  async start() {
+  start = async (): Promise<void> => {
     const controller: Controller = new Controller(new Model(), new View());
     await controller.init();
-  }
+  };
 }

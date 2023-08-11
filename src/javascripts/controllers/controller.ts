@@ -2,8 +2,8 @@ import Model from "../models/model";
 import View from "../views/view";
 
 class Controller {
-  model: Model;
-  view: View;
+  private model: Model;
+  private view: View;
 
   /**
    * Constructor of Controller object
@@ -29,6 +29,15 @@ class Controller {
    */
   initContacts = async (): Promise<void> => {
     await this.model.contact.init();
+    this.loadListContacts();
+  };
+
+  /**
+   * Load and display the contact list.
+   */
+  loadListContacts = (): void => {
+    const contactList = this.model.contact.getContactList();
+    this.view.contact.renderContactList(contactList);
   };
 }
 
