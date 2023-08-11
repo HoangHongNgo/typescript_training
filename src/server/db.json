@@ -1,0 +1,90 @@
+{
+  "contacts": [
+    {
+      "id": "0e4813ba-6617-4b6c-97b0-7af30340e2e6",
+      "name": "Ngo Hong Hoang",
+      "relationId": "1",
+      "phone": "0935487037",
+      "email": "honghoangngo@gmail.com",
+      "avatar": "https://khoinguonsangtao.vn/wp-content/uploads/2022/07/avatar-gau-cute.jpg",
+      "work": {
+        "job": "Fullstack developper",
+        "company": "AgilityIO"
+      },
+      "about": "You're going to make a choice today that will have a direct impact on where you are five years from now. The truth is, you'll make choice like that every day of your life."
+    },
+    {
+      "id": "4b9b59bb-9f80-47e1-959d-6b454bff9726",
+      "name": "Le vu Hoang Duc",
+      "relationId": "2",
+      "phone": "0903589994",
+      "email": "namvuongtranphu@gmail.com",
+      "avatar": "https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien-600x600.jpg",
+      "work": {
+        "job": "Frontend developper",
+        "company": "AgilityIO"
+      },
+      "about": "The problem is that on most days, you won't know the choice you make will have such a huge impact on your life in the future."
+    },
+    {
+      "id": "0c6831b2-517b-401b-a21a-461a1022ce48",
+      "name": "Nguyen Thanh Liem",
+      "relationId": "2",
+      "phone": "0935475369",
+      "email": "Nova.Wolf15@yahoo.com",
+      "avatar": "https://vanhoadoisong.vn/wp-content/uploads/2022/08/tong-hop-100-avatar-dep-cute-de-thuong-cho-cac-cap-doi-08.jpg",
+      "work": {
+        "job": ".NET developper",
+        "company": "AgilityIO"
+      },
+      "about": "Turning away from the ledge, he started slowly down the mountain, deciding that he would, that very night, satisfy his curiosity about the man-house."
+    },
+    {
+      "id": "77616b08-091a-4346-9567-5961dae5c78b",
+      "name": "Nguyen Huu Thuan",
+      "relationId": "1",
+      "phone": "0128765442",
+      "email": "Mario_Bosco77@gmail.com",
+      "avatar": "https://www.hdgame.vn/wp-content/uploads/2022/09/hinh-ff-cute-2.jpg",
+      "work": {
+        "job": "Do nothing",
+        "company": "AgilityIO"
+      },
+      "about": "There was a time when this wouldn't have bothered her."
+    },
+    {
+      "id": "d067da70-aa72-4d93-884b-b3be57c3eb0f",
+      "name": "Hoang Phuong Le",
+      "relationId": "3",
+      "phone": "7275176874",
+      "email": "Icie.Howell@hotmail.com",
+      "avatar": "https://hapotravel.com/wp-content/uploads/2023/03/suu-tam-25-hinh-anh-cute-avatar-dep-nhat-cho-ban-thoa-suc-lua-chon_1.jpg"
+    },
+    {
+      "id": "ceccf43c-0126-46e9-ad07-b758be14350f",
+      "name": "Le Thi Hoai Luong",
+      "relationId": "1",
+      "phone": "0903589789",
+      "email": "biroro@gmail.com",
+      "avatar": "https://i.pinimg.com/564x/f9/ec/ee/f9eceec88636932c381a60f218a13854.jpg"
+    }
+  ],
+  "relations": [
+    {
+      "id": "1",
+      "name": "family"
+    },
+    {
+      "id": "2",
+      "name": "friend"
+    },
+    {
+      "id": "3",
+      "name": "colleague"
+    },
+    {
+      "id": "4",
+      "name": "f-camping"
+    }
+  ]
+}
