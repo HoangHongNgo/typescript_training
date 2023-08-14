@@ -1,5 +1,5 @@
 import { API_GATEWAY_URL, PATH } from "../constants/api";
-import { IRelation } from "../models/interfaces/relationInterface";
+import { IRelation } from "../models/interfaces/relationIFace";
 import Service from "./service";
 
 class RelationService extends Service<IRelation> {

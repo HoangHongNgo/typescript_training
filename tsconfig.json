@@ -9,6 +9,6 @@
       "strictNullChecks": true,
       "sourceMap": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "src/javascripts/constants/.ts"],
     "exclude": ["node_modules"]
 }

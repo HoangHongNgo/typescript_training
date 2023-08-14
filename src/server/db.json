@@ -2,7 +2,7 @@
   "contacts": [
     {
       "id": "0e4813ba-6617-4b6c-97b0-7af30340e2e6",
-      "name": "Ngo Hong Hoang",
+      "Cname": "Ngo Hong Hoang",
       "relationId": "1",
       "phone": "0935487037",
       "email": "honghoangngo@gmail.com",
@@ -15,7 +15,7 @@
     },
     {
       "id": "4b9b59bb-9f80-47e1-959d-6b454bff9726",
-      "name": "Le vu Hoang Duc",
+      "Cname": "Le vu Hoang Duc",
       "relationId": "2",
       "phone": "0903589994",
       "email": "namvuongtranphu@gmail.com",
@@ -28,7 +28,7 @@
     },
     {
       "id": "0c6831b2-517b-401b-a21a-461a1022ce48",
-      "name": "Nguyen Thanh Liem",
+      "Cname": "Nguyen Thanh Liem",
       "relationId": "2",
       "phone": "0935475369",
       "email": "Nova.Wolf15@yahoo.com",
@@ -41,7 +41,7 @@
     },
     {
       "id": "77616b08-091a-4346-9567-5961dae5c78b",
-      "name": "Nguyen Huu Thuan",
+      "Cname": "Nguyen Huu Thuan",
       "relationId": "1",
       "phone": "0128765442",
       "email": "Mario_Bosco77@gmail.com",
@@ -54,7 +54,7 @@
     },
     {
       "id": "d067da70-aa72-4d93-884b-b3be57c3eb0f",
-      "name": "Hoang Phuong Le",
+      "Cname": "Hoang Phuong Le",
       "relationId": "3",
       "phone": "7275176874",
       "email": "Icie.Howell@hotmail.com",
@@ -62,7 +62,7 @@
     },
     {
       "id": "ceccf43c-0126-46e9-ad07-b758be14350f",
-      "name": "Le Thi Hoai Luong",
+      "Cname": "Le Thi Hoai Luong",
       "relationId": "1",
       "phone": "0903589789",
       "email": "biroro@gmail.com",

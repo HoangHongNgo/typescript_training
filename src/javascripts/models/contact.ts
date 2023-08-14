@@ -1,9 +1,10 @@
-import { IContact } from "./interfaces/contactInterface";
-import { IRelation } from "./interfaces/relationInterface";
+import { IContact } from "./interfaces/contactIFace";
+import { IRelation } from "./interfaces/relationIFace";
+import { v4 as uuidv4 } from "uuid";
 
 class Contact implements IContact {
   id: string;
-  name: string;
+  Cname: string;
   relationId: string;
   phone: string;
   email: string;
@@ -18,16 +19,16 @@ class Contact implements IContact {
   /**
    * Constructor of Contact object.
    */
-  constructor({ id, name, relationId, phone, email, avatar, work, about, relation }: IContact) {
-    this.id = id;
-    this.name = name;
-    this.relationId = relationId;
-    this.phone = phone;
-    this.email = email;
-    this.avatar = avatar;
-    this.work = work;
-    this.about = about;
-    this.relation = relation;
+  constructor(data: IContact) {
+    this.id = data.id ? data.id : uuidv4();
+    this.Cname = data.Cname;
+    this.relationId = data.relationId;
+    this.phone = data.phone;
+    this.email = data.email;
+    this.avatar = data.avatar;
+    this.work = data.work;
+    this.about = data.about;
+    this.relation = data.relation;
   }
 }
 
