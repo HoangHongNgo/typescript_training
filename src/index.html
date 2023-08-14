@@ -74,42 +74,57 @@
     <!-- Start modal -->
     <form class="modal">
       <div class="modal__top">
-        <h2 class="text text--black text--semibold text--3xl">Add contact</h2>
+        <h2 class="text text--black text--semibold text--2xl">Add contact</h2>
         <button type="button" class="modal__top__btn">
           <img src="assets/icons/cancel-icon.svg" alt="cancel" />
         </button>
       </div>
       <div class="modal__inputs">
         <div class="modal__inputs__field">
-          <p class="text text--gray text--bold text--xl">Name *</p>
-          <input type="text" name="name" class="input text text--normal text--lg" />
+          <p class="text text--gray text--bold text--lg">Name *</p>
+          <input type="text" name="Cname" class="input text text--normal text--sm" />
           <span class="warning-text text text--warning text--xs text--medium"></span>
         </div>
         <div class="modal__inputs__field">
-          <p class="text text--gray text--bold text--xl">Relation *</p>
-          <select name="relation" class="relation-list text text--normal text--lg">
+          <p class="text text--gray text--bold text--lg">Relation *</p>
+          <select name="relation" class="relation-list text text--normal text--sm">
             <!-- Place to relation template -->
           </select>
         </div>
         <div class="modal__inputs__field">
-          <p class="text text--gray text--bold text--xl">Phone number *</p>
-          <input type="number" name="phone" class="text text--normal text--lg" />
+          <p class="text text--gray text--bold text--lg">Image *</p>
+          <input type="url" name="avatar" class="text text--normal text--sm" />
           <span class="warning-text text text--warning text--xs text--medium"></span>
         </div>
         <div class="modal__inputs__field">
-          <p class="text text--gray text--bold text--xl">Image *</p>
-          <input type="url" name="avatar" class="text text--normal text--lg" />
+          <p class="text text--gray text--bold text--lg">Phone number *</p>
+          <input type="number" name="phone" class="text text--normal text--sm" />
           <span class="warning-text text text--warning text--xs text--medium"></span>
         </div>
         <div class="modal__inputs__field">
-          <p class="text text--gray text--bold text--xl">Email *</p>
-          <input type="email" name="email" class="text text--normal text--lg" />
+          <p class="text text--gray text--bold text--lg">Company *</p>
+          <input type="text" name="company" class="text text--normal text--sm" />
+          <span class="warning-text text text--warning text--xs text--medium"></span>
+        </div>
+        <div class="modal__inputs__field">
+          <p class="text text--gray text--bold text--lg">Job *</p>
+          <input type="text" name="job" class="text text--normal text--sm" />
+          <span class="warning-text text text--warning text--xs text--medium"></span>
+        </div>
+        <div class="modal__inputs__field">
+          <p class="text text--gray text--bold text--lg">Email *</p>
+          <input type="email" name="email" class="text text--normal text--sm" />
+          <span class="warning-text text text--warning text--xs text--medium"></span>
+        </div>
+        <div class="modal__inputs__field textarea">
+          <p class="text text--gray text--bold text--lg">About *</p>
+          <textarea type="text" name="about" class="text text--normal text--sm"></textarea>
           <span class="warning-text text text--warning text--xs text--medium"></span>
         </div>
       </div>
       <div class="modal__buttons">
-        <button type="submit" class="modal__buttons__submit btn btn--primary text text--white text--semibold text--xl">Submit</button>
-        <button type="button" class="modal__buttons__cancel btn btn--secondary text text--white text--semibold text--xl">Cancel</button>
+        <button type="submit" class="modal__buttons__submit btn btn--primary text text--white text--semibold text--lg">Submit</button>
+        <button type="button" class="modal__buttons__cancel btn btn--secondary text text--white text--semibold text--lg">Cancel</button>
       </div>
     </form>
     <!-- End modal -->
