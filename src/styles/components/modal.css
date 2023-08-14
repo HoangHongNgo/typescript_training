@@ -6,15 +6,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 80%;
-  max-width: 968px;
   border-radius: 30px;
 
   background-color: var(--bg-light-color);
 
   padding: 45px;
-
-  scale: 0.8;
 }
 
 .modal--active {
@@ -33,9 +29,9 @@
 
 .modal__inputs {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   column-gap: 55px;
-  row-gap: 45px;
+  row-gap: 25px;
 
   margin: 50px 0 50px;
 }
@@ -60,10 +56,23 @@
 
 .modal__inputs__field > input,
 select {
+  width: 256px;
+  height: 62px;
+
+  border-radius: 5px;
+  border: 2px solid var(--secondary-color);
+
+  padding: 10px;
+}
+
+.modal__inputs__field.textarea {
+  grid-column: span 2;
+}
+
+.modal__inputs__field > textarea {
   width: 100%;
   max-width: 413px;
   height: 62px;
-
   border-radius: 5px;
   border: 2px solid var(--secondary-color);
 
@@ -77,11 +86,11 @@ select {
 .modal__buttons {
   display: flex;
   justify-content: center;
-  gap: 64px;
+  gap: 42px;
 }
 
 .modal__buttons > button {
   width: 40%;
-  max-width: 264px;
+  max-width: 200px;
   height: 62px;
 }
