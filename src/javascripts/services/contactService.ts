@@ -1,4 +1,4 @@
-import { IContact } from "../models/interfaces/contactInterface";
+import { IContact } from "../models/interfaces/contactIFace";
 import Service from "./service";
 import { API_GATEWAY_URL, PATH, QUERY } from "../constants/api";
 
