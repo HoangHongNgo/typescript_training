@@ -118,7 +118,7 @@ class Controller {
       } catch {
         this.displaySnackbar("warning", ERROR_MESSAGE.OPEN_CONFIRM_MODAL);
       }
-    } else this.displaySnackbar("warning", ERROR_MESSAGE.GET_CONTACT_INFO);
+    }
   };
 
   /**
@@ -175,7 +175,7 @@ class Controller {
   /**
    * Initializing the relation lists.
    */
-  initRelations = async () => {
+  initRelations = async (): Promise<void> => {
     try {
       await this.model.relation.init();
     } catch {
@@ -191,7 +191,7 @@ class Controller {
   /**
    * Initializing the modals.
    */
-  initModal = () => {
+  initModal = (): void => {
     this.view.modal.addEventSubmission(this.saveContact);
     this.view.modal.addEventDeleteConfirmed(this.deleteContact);
     this.view.modal.addEventCancelModal();

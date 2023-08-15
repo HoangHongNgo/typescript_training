@@ -2,8 +2,8 @@ import Relation from "../models/relation";
 import RelationTmpl from "../templates/relationTmpl";
 
 class RelationView {
-  relationListEl: HTMLElement;
-  relationDropDownEl: HTMLElement;
+  private relationListEl: HTMLElement;
+  private relationDropDownEl: HTMLElement;
 
   /**
    * Constructor of RelationView object

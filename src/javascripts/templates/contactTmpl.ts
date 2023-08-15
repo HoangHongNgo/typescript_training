@@ -17,7 +17,7 @@ class ContactTmpl {
                 <img src="${contact.avatar}" alt="avatar" />
             </div>
             <div class="contact-item__info col-3">
-                <p class="contact-item__info__name text text--black text--semibold text--lg">${contact.Cname}</p>
+                <p class="contact-item__info__name text text--black text--semibold text--lg">${contact.name}</p>
                 <p class="text text--gray text--xs text--medium">${contact.relation.name}</p>
             </div>
             <p class="contact-item__phone col-3 text text--black text--medium text--sm">${contact.phone}</p>
@@ -36,7 +36,7 @@ class ContactTmpl {
             <img src="${contact.avatar}" alt="avatar" />
         </div>
         <p class="info__head__name text text--black text--normal text--lg">
-            ${contact.Cname}
+            ${contact.name}
         </p>
         <p class="info__head__relation text text--gray text--medium text--sm">
             ${contact.relation.name}

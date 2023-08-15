@@ -1,10 +1,11 @@
 import { IContact } from "./interfaces/contactIFace";
 import { IRelation } from "./interfaces/relationIFace";
 import { v4 as uuidv4 } from "uuid";
+import { DEFAULT_AVATAR } from "../constants/constant";
 
 class Contact implements IContact {
   id: string;
-  Cname: string;
+  name: string;
   relationId: string;
   phone: string;
   email: string;
@@ -21,11 +22,11 @@ class Contact implements IContact {
    */
   constructor(data: IContact) {
     this.id = data.id ? data.id : uuidv4();
-    this.Cname = data.Cname;
+    this.name = data.name;
     this.relationId = data.relationId;
     this.phone = data.phone;
     this.email = data.email;
-    this.avatar = data.avatar;
+    this.avatar = data.avatar ? data.avatar : DEFAULT_AVATAR.DEFAULT;
     this.work = data.work;
     this.about = data.about;
     this.relation = data.relation;

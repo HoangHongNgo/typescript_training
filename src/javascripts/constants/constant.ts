@@ -10,6 +10,12 @@ export const VALIDATOR_MESSAGE = {
   INVALID_EMAIL: "The email address is invalid",
   AVATAR_REQUIRED: "The avatar is required",
   INVALID_AVATAR: "The avatar is invalid",
+  JOB_REQUIRED: "The job is required",
+  INVALID_JOB: "The job is invalid",
+  COMPANY_REQUIRED: "The company is required",
+  INVALID_COMPANY: "The company is invalid",
+  ABOUT_REQUIRED: "The about field is required",
+  INVALID_ABOUT: "The about field is invalid",
   CONFIRM_MESSAGE: "Do you want to delete contact: ",
 };
 
@@ -39,12 +45,19 @@ export const SUCCESS_MESSAGE = {
   DELETE_CONTACT: "Delete contact successfully",
 };
 
+export const DEFAULT_AVATAR = {
+  DEFAULT: "https://ps.w.org/simple-user-avatar/assets/icon-256x256.png?rev=2413146",
+};
+
 /**
  * Regex for form validator.
  */
 export const REGEX = {
-  NAME: /^[a-zA-Z\s]+$/,
+  NAME: /^[a-zA-Z\s]{2,50}$/,
   PHONE: /^\d{10}$/,
-  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]{2,50}$/,
   AVATAR: /\.(jpeg|jpg|png|gif|bmp|svg)$/i,
+  JOB: /^.{2,50}$/,
+  COMPANY: /^.{2,50}$/,
+  ABOUT: /^.{10,300}$/,
 };

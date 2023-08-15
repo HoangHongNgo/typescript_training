@@ -18,7 +18,7 @@ class RelationTmpl {
   /**
    * HTML Template for the relation list filter's dropdown.
    * @param {Relation} relation
-   * @returns {HTMLElement} HTML element for displaying relation in filter options.
+   * @returns {String} HTML element for displaying relation in filter options.
    */
   static renderRelationDropDown = (relation: Relation): string => `  
     <input type="radio" id="${relation.id}" name="filter_option" value="${relation.id}">     

@@ -53,7 +53,7 @@ class ContactsModel {
 
   /**
    * Add contact to contact list and database.
-   * @param {Object} data
+   * @param {IContact} data
    */
   addContact = async (data: IContact): Promise<void> => {
     const contact = new Contact(data);
@@ -64,7 +64,7 @@ class ContactsModel {
 
   /**
    * Update contact in contact list and database.
-   * @param {Contact} data
+   * @param {IContact} data
    */
   editContact = async (data: IContact): Promise<void> => {
     const contact = new Contact(data);
@@ -105,7 +105,7 @@ class ContactsModel {
         }
         // Match with search key
         if (searchKey) {
-          const fields: (keyof Contact)[] = ["Cname", "phone", "email"];
+          const fields: (keyof Contact)[] = ["name", "phone", "email"];
           isMatchSearch = fields.some((field) => contact[field].toString().toLowerCase().includes(searchKey));
         }
         return isMatchFilter && isMatchSearch;

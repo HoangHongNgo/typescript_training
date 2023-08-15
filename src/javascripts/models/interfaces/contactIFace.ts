@@ -2,7 +2,7 @@ import { IRelation } from "./relationIFace";
 
 export interface IContactCommon {
   id: string | null;
-  Cname: string;
+  name: string;
   relationId: string;
   phone: string;
   email: string;

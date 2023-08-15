@@ -39,7 +39,7 @@ class ModalsView {
     this.overlayEl.classList.add("overlay--active");
     if (contactId && contact) {
       this.modalEl.setAttribute("data-id", contactId);
-      (this.modalEl.querySelector('input[name="Cname"]') as HTMLInputElement).value = contact.Cname;
+      (this.modalEl.querySelector('input[name="name"]') as HTMLInputElement).value = contact.name;
       (this.modalEl.querySelector('select[name="relation"]') as HTMLInputElement).value = contact.relation.id;
       (this.modalEl.querySelector('input[name="phone"]') as HTMLInputElement).value = contact.phone;
       (this.modalEl.querySelector('input[name="avatar"]') as HTMLInputElement).value = contact.avatar;
@@ -60,7 +60,7 @@ class ModalsView {
     this.confirmModalEl.setAttribute("data-id", contact.id);
     (
       this.confirmModalEl.querySelector(".confirm-modal__message") as HTMLElement
-    ).innerText = `${VALIDATOR_MESSAGE.CONFIRM_MESSAGE}${contact.Cname}`;
+    ).innerText = `${VALIDATOR_MESSAGE.CONFIRM_MESSAGE}${contact.name}`;
   };
 
   /**
@@ -97,7 +97,7 @@ class ModalsView {
       event.preventDefault();
       const contact: IContactFormInfo = {
         id: this.modalEl.getAttribute("data-id"),
-        Cname: this.modalEl.Cname.value,
+        name: (this.modalEl.querySelector("input[name='name']") as HTMLInputElement).value,
         relationId: this.modalEl.relation.value,
         phone: this.modalEl.phone.value,
         email: this.modalEl.email.value,

@@ -16,7 +16,7 @@ class ApiRequest<T> {
    * Send GET HTTP request with id param(return an object).
    * @param {String} id
    * @param {String} query
-   * @return {Object|Array} response from server.
+   * @return {Promise<T>} response from server.
    */
   getById = (id: string, query?: string): Promise<T> => {
     return this.sendRequest<T>(`${this.path}${id ? `/${id}/` : ""}${query ? query : ""}`, "GET");
@@ -25,7 +25,7 @@ class ApiRequest<T> {
   /**
    * Send GET HTTP request to get a list of object.
    * @param {String} query
-   * @return {Object|Array} response from server.
+   * @return {Promise<T[]>} response from server.
    */
   getList = (query?: string): Promise<T[]> => {
     return this.sendRequest<T[]>(`${this.path}${query ? query : ""}`, "GET");
@@ -33,7 +33,7 @@ class ApiRequest<T> {
 
   /**
    * Send POST HTTP request.
-   * @param {Object} data
+   * @param {T} data
    */
   post = async <T>(data: T): Promise<void> => {
     await this.sendRequest<T>(`${this.path}`, "POST", data);
@@ -42,7 +42,6 @@ class ApiRequest<T> {
   /**
    * Send PUT HTTP request.
    * @param {String} id
-   * @param {Object} data
    */
   put = async <T>(id: string, data: T): Promise<void> => {
     await this.sendRequest<T>(`${this.path}/${id}`, "PUT", data);
@@ -51,7 +50,6 @@ class ApiRequest<T> {
   /**
    * Send PATCH HTTP request.
    * @param {String} id
-   * @param {Object} data
    */
   patch = async <T>(id: string, data: T): Promise<void> => {
     await this.sendRequest<T>(`${this.path}/${id}`, "PATCH", data);
@@ -60,7 +58,6 @@ class ApiRequest<T> {
   /**
    * Send DELETE HTTP request.
    * @param {String} id
-   * @returns @returns {Object} response from server.
    */
   delete = async (id: string): Promise<void> => {
     await this.sendRequest<T>(`${this.path}/${id}`, "DELETE");
@@ -69,8 +66,8 @@ class ApiRequest<T> {
   /**
    * Send the HTTP request to the API_GATEWAY_URL endpoint.
    * @param {String} method
-   * @param {Object} body
-   * @return {Object|Array} response from server.
+   * @param {T} body(optional)
+   * @return {Promise<T>} response from server.
    */
   sendRequest = async <T>(path: string, method: string, body?: T): Promise<T> => {
     const url = `${this.baseUrl}${path}`;
