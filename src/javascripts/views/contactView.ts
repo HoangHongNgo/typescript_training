@@ -22,6 +22,9 @@ class ContactView {
   private filterDropDown: HTMLElement;
   private deleteBtnEl?: HTMLElement;
   private editBtnEl?: HTMLElement;
+  private infoNavEl?: HTMLElement;
+  private infoTypeEl?: string;
+  private navBgrEl?: HTMLElement;
   private contactEl: string;
   private filterParams: IFilter;
 
@@ -77,8 +80,12 @@ class ContactView {
       this.infoEl.innerHTML = ContactTmpl.renderContactInfo(contactInfo);
       this.deleteBtnEl = this.infoEl.querySelector(".info__button__delete")!;
       this.editBtnEl = this.infoEl.querySelector(".info__button__edit")!;
+      this.infoNavEl = this.infoEl.querySelector(".info__nav")!;
+      this.navBgrEl = this.infoNavEl.querySelector(".info__nav__active")!;
+      this.infoTypeEl = ".info__nav__title";
       this.addEventDeleteContact(this.deleteBtnEl, openConfirmModal);
       this.addEventEditContact(this.editBtnEl, openEditModal);
+      this.addDelegateChangeInfoType(this.infoNavEl);
     } else {
       this.infoEl.innerHTML = "";
     }
@@ -92,13 +99,26 @@ class ContactView {
    */
   addDelegateShowInfo = (showInfo: ShowInfoFnc): void => {
     this.contactListEl.addEventListener("click", (event) => {
-      this.contactListEl.querySelector(this.contactEl + ".contact-item--active")?.classList.remove("contact-item--active");
       const el: Element | null = (event.target as Element).closest(this.contactEl);
       if (el) {
+        this.contactListEl.querySelector(this.contactEl + ".contact-item--active")?.classList.remove("contact-item--active");
         el.classList.add("contact-item--active");
-        const contactId = el.getAttribute("data-id");
-        showInfo(contactId!);
+        const contactId = el.getAttribute("data-id")!;
+        showInfo(contactId);
       }
+    });
+  };
+
+  /**
+   * Add delegate lisnter change information type to show in the contact info.
+   * @param {HTMLElement} El
+   */
+  addDelegateChangeInfoType = (El: HTMLElement): void => {
+    El.addEventListener("click", (event) => {
+      const typeId = (event.target as Element).closest(this.infoTypeEl!)?.getAttribute("data-id") as unknown as number;
+      this.navBgrEl?.setAttribute("style", `transform: translateX(${-150 + typeId * 100}%);`);
+      this.infoEl?.querySelector(".detail--show")?.classList.remove("detail--show");
+      this.infoEl?.querySelectorAll(".detail")[typeId]?.classList.add("detail--show");
     });
   };
 
