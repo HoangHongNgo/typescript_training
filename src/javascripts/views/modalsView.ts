@@ -44,6 +44,9 @@ class ModalsView {
       (this.modalEl.querySelector('input[name="phone"]') as HTMLInputElement).value = contact.phone;
       (this.modalEl.querySelector('input[name="avatar"]') as HTMLInputElement).value = contact.avatar;
       (this.modalEl.querySelector('input[name="email"]') as HTMLInputElement).value = contact.email;
+      (this.modalEl.querySelector('input[name="company"]') as HTMLInputElement).value = contact.work.company;
+      (this.modalEl.querySelector('input[name="job"]') as HTMLInputElement).value = contact.work.job;
+      (this.modalEl.querySelector('textarea[name="about"]') as HTMLInputElement).value = contact.about;
     }
   };
 
