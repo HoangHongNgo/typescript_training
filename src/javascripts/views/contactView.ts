@@ -8,7 +8,7 @@ export interface IFilter {
   };
 }
 type ShowInfoFnc = (id?: string) => void;
-type OpenAddModalFnc = (id?: string) => void;
+type OpenAddModalFnc = () => void;
 type OpenEditModalFnc = (id: string) => void;
 type OpenConfirmModalFnc = (id: string) => void;
 type FilterFnc = (param: IFilter) => void;
