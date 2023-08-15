@@ -1,6 +1,9 @@
 import Contact from "../models/contact";
 import Model from "../models/model";
 import View from "../views/view";
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/constant";
+import { IContact, IContactFormInfo } from "../models/interfaces/contactIFace";
+import { IFilter } from "../views/contactView";
 
 class Controller {
   private model: Model;
@@ -8,8 +11,8 @@ class Controller {
 
   /**
    * Constructor of Controller object
-   * @param {Object} model
-   * @param {Object} view
+   * @param {Model} model
+   * @param {View} view
    */
   constructor(model: Model, view: View) {
     this.model = model;
@@ -21,6 +24,8 @@ class Controller {
    */
   init = async (): Promise<void> => {
     await this.initContacts();
+    await this.initRelations();
+    this.initModal();
   };
 
   //----- CONTACT CONTROLLER -----//
@@ -29,28 +34,180 @@ class Controller {
    * Initializing the contact list and contact information.
    */
   initContacts = async (): Promise<void> => {
-    await this.model.contact.init();
+    try {
+      await this.model.contact.init();
+    } catch {
+      this.displaySnackbar("warning", ERROR_MESSAGE.INIT_CONTACT_LIST);
+    }
     this.loadListContacts();
     this.showInfo();
+    this.view.contact.addEventOpenAddModal(this.openAddModal);
     this.view.contact.addDelegateShowInfo(this.showInfo);
+    this.view.contact.addEventSearchContact(this.filterContact);
+    this.view.contact.addEventShowFilterOptions();
+    this.view.contact.addDelegateFilterContact(this.filterContact);
+  };
+
+  /**
+   * Add or edit a contact and display the new contact list.
+   * @param {IContactFormInfo} data
+   */
+  saveContact = async (data: IContactFormInfo): Promise<void> => {
+    const contact: IContact = {
+      ...data,
+      relation: this.model.relation.getRelationById(data.relationId)!,
+    };
+    if (!contact.id) {
+      try {
+        await this.model.contact.addContact(contact);
+        this.displaySnackbar("success", SUCCESS_MESSAGE.ADD_CONTACT);
+      } catch {
+        this.displaySnackbar("warning", ERROR_MESSAGE.ADD_CONTACT);
+      }
+    } else {
+      try {
+        await this.model.contact.editContact(contact);
+        this.displaySnackbar("success", SUCCESS_MESSAGE.EDIT_CONTACT);
+      } catch {
+        this.displaySnackbar("warning", ERROR_MESSAGE.EDIT_CONTACT);
+      }
+    }
+    this.loadListContacts();
+    this.showInfo(contact.id);
   };
 
   /**
    * Load and display the contact list.
+   * @param {IFilter} filterParams(optional)
    */
-  loadListContacts = (): void => {
-    const contactList = this.model.contact.getContactList();
-    this.view.contact.renderContactList(contactList);
+  loadListContacts = (filterParams?: IFilter): void => {
+    const contacts: Contact[] = this.model.contact.filterList(filterParams);
+    try {
+      this.view.contact.renderContactList(contacts);
+    } catch {
+      this.displaySnackbar("warning", ERROR_MESSAGE.RENDER_CONTACT_LIST);
+    }
   };
 
   /**
    * Display the contact information by contact's id or by default.
-   * @param {String} contactId
+   * @param {String | null} contactId
    */
-  showInfo = async (contactId?: string) => {
+  showInfo = async (contactId?: string | null): Promise<void> => {
     if (contactId) this.model.contact.setContactInfo(contactId);
     const contactInfo: Contact | undefined = this.model.contact.getContactInfo();
-    this.view.contact.renderContactInfo(contactInfo);
+    if (contactInfo) {
+      this.view.contact.renderContactInfo(contactInfo, this.openConfirmDltModal, this.openEditModal);
+    }
+  };
+
+  /**
+   * Show the confirm modal when delete a contact.
+   * @param {String} contactId
+   */
+  openConfirmDltModal = async (contactId: string): Promise<void> => {
+    let contact;
+    try {
+      contact = await this.model.contact.getContactById(contactId);
+    } catch {
+      this.displaySnackbar("warning", ERROR_MESSAGE.GET_CONTACT_INFO);
+    }
+    if (contact) {
+      try {
+        this.view.modal.openConfirmModal(contact);
+      } catch {
+        this.displaySnackbar("warning", ERROR_MESSAGE.OPEN_CONFIRM_MODAL);
+      }
+    } else this.displaySnackbar("warning", ERROR_MESSAGE.GET_CONTACT_INFO);
+  };
+
+  /**
+   * Show add modal when click add contact button.
+   */
+  openAddModal = (): void => {
+    this.view.modal.openModal();
+  };
+
+  /**
+   * Delete a contact by ID action.
+   * @param {String} contactId
+   */
+  deleteContact = async (contactId: string): Promise<void> => {
+    try {
+      await this.model.contact.deleteContactById(contactId);
+      this.displaySnackbar("success", SUCCESS_MESSAGE.DELETE_CONTACT);
+    } catch {
+      this.displaySnackbar("warning", ERROR_MESSAGE.DELETE_CONTACT);
+    }
+    this.loadListContacts();
+    this.showInfo();
+  };
+
+  /**
+   * Show a modal for editing when click edit contact.
+   * @param {String} contactId
+   */
+  openEditModal = async (contactId: string): Promise<void> => {
+    let contact;
+    try {
+      contact = await this.model.contact.getContactById(contactId);
+    } catch {
+      this.displaySnackbar("warning", ERROR_MESSAGE.GET_CONTACT_INFO);
+    }
+    // try {
+    this.view.modal.openModal(contactId, contact);
+    // } catch {
+    //   this.displaySnackbar("warning", ERROR_MESSAGE.OPEN_EDIT_MODAL);
+    // }
+  };
+
+  /**
+   * Display the result while searching in contact list.
+   * @param {IFilter} filterParams
+   */
+  filterContact = (filterParams: IFilter): void => {
+    this.loadListContacts(filterParams);
+    this.showInfo();
+  };
+
+  //----- RELATION CONTROLLER -----//
+
+  /**
+   * Initializing the relation lists.
+   */
+  initRelations = async () => {
+    try {
+      await this.model.relation.init();
+    } catch {
+      this.displaySnackbar("warning", ERROR_MESSAGE.INIT_RELATION_LIST);
+    }
+    const relations = this.model.relation.getRelations();
+    this.view.relation.renderRelationList(relations);
+    this.view.relation.renderRelationDropdownList(relations);
+  };
+
+  //----- MODAL CONTROLLER -----//
+
+  /**
+   * Initializing the modals.
+   */
+  initModal = () => {
+    this.view.modal.addEventSubmission(this.saveContact);
+    this.view.modal.addEventDeleteConfirmed(this.deleteContact);
+    this.view.modal.addEventCancelModal();
+    this.view.modal.addEventCancelConfirmed();
+    this.view.modal.addEventClickOutside();
+  };
+
+  //----- SNACKBAR CONTROLLER -----//
+
+  /**
+   * Display the snackbar on top of the window.
+   * @param {String} type
+   * @param {String} message
+   */
+  displaySnackbar = (type: string, message: string): void => {
+    this.view.snackbar.showSnackbar(type, message);
   };
 }
 
