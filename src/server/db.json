@@ -88,23 +88,6 @@
         "id": "1",
         "name": "family"
       }
-    },
-    {
-      "id": "6416ce83-48e5-47de-a2d8-eaa85212092d",
-      "name": "Ngo Hong Hoang",
-      "relationId": "1",
-      "phone": "0935487037",
-      "email": "honghoangngo@gmail.com",
-      "avatar": "https://ps.w.org/simple-user-avatar/assets/icon-256x256.png?rev=2413146",
-      "work": {
-        "job": "",
-        "company": "Danang University of Science and Technology"
-      },
-      "about": "",
-      "relation": {
-        "id": "1",
-        "name": "family"
-      }
     }
   ],
   "relations": [
