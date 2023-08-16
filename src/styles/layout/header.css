@@ -70,6 +70,7 @@
   display: none;
   position: absolute;
   top: 120%;
+  z-index: 1;
 
   padding: 0px 10px;
   border-radius: 10px;

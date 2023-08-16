@@ -50,11 +50,7 @@
         "job": "Dev",
         "company": "Agility"
       },
-      "about": "ádasdasdasd",
-      "relation": {
-        "id": "2",
-        "name": "friend"
-      }
+      "about": "ádasdasdasd"
     },
     {
       "id": "d067da70-aa72-4d93-884b-b3be57c3eb0f",
@@ -62,7 +58,12 @@
       "relationId": "3",
       "phone": "7275176874",
       "email": "Icie.Howell@hotmail.com",
-      "avatar": "https://hapotravel.com/wp-content/uploads/2023/03/suu-tam-25-hinh-anh-cute-avatar-dep-nhat-cho-ban-thoa-suc-lua-chon_1.jpg"
+      "avatar": "https://hapotravel.com/wp-content/uploads/2023/03/suu-tam-25-hinh-anh-cute-avatar-dep-nhat-cho-ban-thoa-suc-lua-chon_1.jpg",
+      "work": {
+        "job": "Frontend developper",
+        "company": "AgilityIO"
+      },
+      "about": "The problem is that on most days, you won't know the choice you make will have such a huge impact on your life in the future."
     },
     {
       "id": "ceccf43c-0126-46e9-ad07-b758be14350f",
@@ -70,7 +71,12 @@
       "relationId": "1",
       "phone": "0903589789",
       "email": "biroro@gmail.com",
-      "avatar": "https://i.pinimg.com/564x/f9/ec/ee/f9eceec88636932c381a60f218a13854.jpg"
+      "avatar": "https://i.pinimg.com/564x/f9/ec/ee/f9eceec88636932c381a60f218a13854.jpg",
+      "work": {
+        "job": "Frontend developper",
+        "company": "AgilityIO"
+      },
+      "about": "The problem is that on most days, you won't know the choice you make will have such a huge impact on your life in the future."
     },
     {
       "id": "7ad74091-0519-4387-bb71-8c70e6045d48",
@@ -83,11 +89,7 @@
         "job": "Dev",
         "company": "Agility"
       },
-      "about": "He had done everything right. There had been no mistakes throughout the entire process. It had been perfection and he knew it without a doubt, but the results still stared back at him with the fact that he had lost.",
-      "relation": {
-        "id": "1",
-        "name": "family"
-      }
+      "about": "He had done everything right. There had been no mistakes throughout the entire process. It had been perfection and he knew it without a doubt, but the results still stared back at him with the fact that he had lost."
     }
   ],
   "relations": [

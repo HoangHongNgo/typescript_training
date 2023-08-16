@@ -1,7 +1,7 @@
 /**
  * API gateway url.
  */
-export const API_GATEWAY_URL: string = "http://localhost:3000";
+export const API_GATEWAY_URL: string = "https://contacts-n9qn.onrender.com";
 
 /**
  * API path.
