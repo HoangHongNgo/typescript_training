@@ -1,5 +1,5 @@
 .info {
-  padding-top: 113px;
+  padding-top: 66px;
 
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@
   right: 50%;
   left: 50%;
   transform: translateX(-150%);
-  transition: transform 0.1s ease;
+  transition: transform 0.1s ease-out;
 }
 
 .info__nav__title {

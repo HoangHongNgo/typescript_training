@@ -105,7 +105,7 @@ class ContactsModel {
         }
         // Match with search key
         if (searchKey) {
-          const fields: (keyof Contact)[] = ["name", "phone", "email"];
+          const fields: (keyof Contact)[] = ["name", "phone", "email", "work"];
           isMatchSearch = fields.some((field) => contact[field].toString().toLowerCase().includes(searchKey));
         }
         return isMatchFilter && isMatchSearch;

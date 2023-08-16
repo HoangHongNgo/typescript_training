@@ -1,6 +1,8 @@
 .contacts {
   grid-column-start: 2;
   padding: 20px;
+  height: 100%;
+  overflow: auto;
 }
 
 .contacts__list {
@@ -8,6 +10,7 @@
   flex-direction: column;
   gap: 22px;
 
-  height: 100vh;
+  height: 100%;
+
   overflow: scroll;
 }

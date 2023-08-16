@@ -4,6 +4,7 @@ import View from "../views/view";
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/constant";
 import { IContact, IContactFormInfo } from "../models/interfaces/contactIFace";
 import { IFilter } from "../views/contactView";
+import Relation from "../models/relation";
 
 class Controller {
   private model: Model;
@@ -23,8 +24,10 @@ class Controller {
    * Initializing the controller
    */
   init = async (): Promise<void> => {
+    this.displayLoading();
     await this.initContacts();
     await this.initRelations();
+    this.closeLoading();
     this.initModal();
   };
 
@@ -57,6 +60,7 @@ class Controller {
       ...data,
       relation: this.model.relation.getRelationById(data.relationId)!,
     };
+    this.displayLoading();
     if (!contact.id) {
       try {
         await this.model.contact.addContact(contact);
@@ -72,6 +76,7 @@ class Controller {
         this.displaySnackbar("warning", ERROR_MESSAGE.EDIT_CONTACT);
       }
     }
+    this.closeLoading();
     this.loadListContacts();
     this.showInfo(contact.id);
   };
@@ -134,10 +139,13 @@ class Controller {
    */
   deleteContact = async (contactId: string): Promise<void> => {
     try {
+      this.displayLoading();
       await this.model.contact.deleteContactById(contactId);
       this.displaySnackbar("success", SUCCESS_MESSAGE.DELETE_CONTACT);
     } catch {
       this.displaySnackbar("warning", ERROR_MESSAGE.DELETE_CONTACT);
+    } finally {
+      this.closeLoading();
     }
     this.loadListContacts();
     this.showInfo();
@@ -148,17 +156,20 @@ class Controller {
    * @param {String} contactId
    */
   openEditModal = async (contactId: string): Promise<void> => {
-    let contact;
+    let contact: Contact;
     try {
+      this.displayLoading();
       contact = await this.model.contact.getContactById(contactId);
+      try {
+        this.view.modal.openModal(contactId, contact);
+      } catch {
+        this.displaySnackbar("warning", ERROR_MESSAGE.OPEN_EDIT_MODAL);
+      }
     } catch {
       this.displaySnackbar("warning", ERROR_MESSAGE.GET_CONTACT_INFO);
+    } finally {
+      this.closeLoading();
     }
-    // try {
-    this.view.modal.openModal(contactId, contact);
-    // } catch {
-    //   this.displaySnackbar("warning", ERROR_MESSAGE.OPEN_EDIT_MODAL);
-    // }
   };
 
   /**
@@ -181,7 +192,7 @@ class Controller {
     } catch {
       this.displaySnackbar("warning", ERROR_MESSAGE.INIT_RELATION_LIST);
     }
-    const relations = this.model.relation.getRelations();
+    const relations: Relation[] = this.model.relation.getRelations();
     this.view.relation.renderRelationList(relations);
     this.view.relation.renderRelationDropdownList(relations);
   };
@@ -208,6 +219,22 @@ class Controller {
    */
   displaySnackbar = (type: string, message: string): void => {
     this.view.snackbar.showSnackbar(type, message);
+  };
+
+  //----- LOADING CONTROLLER -----//
+
+  /**
+   * Display the loading indicator.
+   */
+  displayLoading = () => {
+    this.view.loading.displayLoading();
+  };
+
+  /**
+   * Close the loading indicator.
+   */
+  closeLoading = () => {
+    this.view.loading.closeLoading();
   };
 }
 
