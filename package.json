@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
   "devDependencies": {
     "@types/uuid": "^9.0.2",
     "parcel": "^2.9.3",
