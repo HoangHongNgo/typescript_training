@@ -111,10 +111,10 @@ class ContactView {
 
   /**
    * Add delegate lisnter change information type to show in the contact info.
-   * @param {HTMLElement} El
+   * @param {HTMLElement} el
    */
-  addDelegateChangeInfoType = (El: HTMLElement): void => {
-    El.addEventListener("click", (event) => {
+  addDelegateChangeInfoType = (el: HTMLElement): void => {
+    el.addEventListener("click", (event) => {
       const typeId = (event.target as Element).closest(this.infoTypeEl!)?.getAttribute("data-id") as unknown as number;
       this.navBgrEl?.setAttribute("style", `transform: translateX(${-150 + typeId * 100}%);`);
       this.infoEl?.querySelector(".detail--show")?.classList.remove("detail--show");

@@ -5,6 +5,7 @@ import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/constant";
 import { IContact, IContactFormInfo } from "../models/interfaces/contactIFace";
 import { IFilter } from "../views/contactView";
 import Relation from "../models/relation";
+import { SnackbarType } from "../enums/enums";
 
 class Controller {
   private model: Model;
@@ -40,7 +41,7 @@ class Controller {
     try {
       await this.model.contact.init();
     } catch {
-      this.displaySnackbar("warning", ERROR_MESSAGE.INIT_CONTACT_LIST);
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.INIT_CONTACT_LIST);
     }
     this.loadListContacts();
     this.showInfo();
@@ -64,16 +65,16 @@ class Controller {
     if (!contact.id) {
       try {
         await this.model.contact.addContact(contact);
-        this.displaySnackbar("success", SUCCESS_MESSAGE.ADD_CONTACT);
+        this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.ADD_CONTACT);
       } catch {
-        this.displaySnackbar("warning", ERROR_MESSAGE.ADD_CONTACT);
+        this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.ADD_CONTACT);
       }
     } else {
       try {
         await this.model.contact.editContact(contact);
-        this.displaySnackbar("success", SUCCESS_MESSAGE.EDIT_CONTACT);
+        this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.EDIT_CONTACT);
       } catch {
-        this.displaySnackbar("warning", ERROR_MESSAGE.EDIT_CONTACT);
+        this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.EDIT_CONTACT);
       }
     }
     this.closeLoading();
@@ -90,7 +91,7 @@ class Controller {
     try {
       this.view.contact.renderContactList(contacts);
     } catch {
-      this.displaySnackbar("warning", ERROR_MESSAGE.RENDER_CONTACT_LIST);
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.RENDER_CONTACT_LIST);
     }
   };
 
@@ -111,18 +112,14 @@ class Controller {
    * @param {String} contactId
    */
   openConfirmDltModal = async (contactId: string): Promise<void> => {
-    let contact;
     try {
-      contact = await this.model.contact.getContactById(contactId);
+      this.displayLoading();
+      const contact: Contact = await this.model.contact.getContactById(contactId);
+      this.view.modal.openConfirmModal(contact);
     } catch {
-      this.displaySnackbar("warning", ERROR_MESSAGE.GET_CONTACT_INFO);
-    }
-    if (contact) {
-      try {
-        this.view.modal.openConfirmModal(contact);
-      } catch {
-        this.displaySnackbar("warning", ERROR_MESSAGE.OPEN_CONFIRM_MODAL);
-      }
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.GET_CONTACT_INFO);
+    } finally {
+      this.closeLoading();
     }
   };
 
@@ -141,9 +138,9 @@ class Controller {
     try {
       this.displayLoading();
       await this.model.contact.deleteContactById(contactId);
-      this.displaySnackbar("success", SUCCESS_MESSAGE.DELETE_CONTACT);
+      this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.DELETE_CONTACT);
     } catch {
-      this.displaySnackbar("warning", ERROR_MESSAGE.DELETE_CONTACT);
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.DELETE_CONTACT);
     } finally {
       this.closeLoading();
     }
@@ -156,17 +153,12 @@ class Controller {
    * @param {String} contactId
    */
   openEditModal = async (contactId: string): Promise<void> => {
-    let contact: Contact;
     try {
       this.displayLoading();
-      contact = await this.model.contact.getContactById(contactId);
-      try {
-        this.view.modal.openModal(contactId, contact);
-      } catch {
-        this.displaySnackbar("warning", ERROR_MESSAGE.OPEN_EDIT_MODAL);
-      }
+      const contact: Contact = await this.model.contact.getContactById(contactId);
+      this.view.modal.openModal(contactId, contact);
     } catch {
-      this.displaySnackbar("warning", ERROR_MESSAGE.GET_CONTACT_INFO);
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.GET_CONTACT_INFO);
     } finally {
       this.closeLoading();
     }
@@ -190,7 +182,7 @@ class Controller {
     try {
       await this.model.relation.init();
     } catch {
-      this.displaySnackbar("warning", ERROR_MESSAGE.INIT_RELATION_LIST);
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.INIT_RELATION_LIST);
     }
     const relations: Relation[] = this.model.relation.getRelations();
     this.view.relation.renderRelationList(relations);

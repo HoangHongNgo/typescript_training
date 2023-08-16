@@ -71,9 +71,9 @@ class ModalsView {
     this.overlayEl.classList.remove("overlay--active");
     this.modalEl.removeAttribute("data-id");
     this.modalEl.reset();
-    this.modalEl.querySelectorAll("input").forEach((El) => {
-      El.classList.remove("input--warning");
-      El.nextElementSibling!.classList.remove("warning-text--active");
+    this.modalEl.querySelectorAll("input").forEach((el) => {
+      el.classList.remove("input--warning");
+      el.nextElementSibling!.classList.remove("warning-text--active");
     });
   };
 
