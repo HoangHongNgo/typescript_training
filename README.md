@@ -1,4 +1,4 @@
-# JavaScript Practice
+# TypeScript Practice
 
 ## Target:
 
@@ -99,5 +99,5 @@ npm install
 - Step 05: Run the project
 
 ```bash
-npx parcel src/index.html
+npm start
 ```
