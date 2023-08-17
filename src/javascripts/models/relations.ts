@@ -33,6 +33,7 @@ class RelationsModel {
 
   /**
    * Get list of Relation objects.
+   * @returns {IRelation[]} list of Relation objects
    */
   getRelations = (): Relation[] => {
     return this.relationList;

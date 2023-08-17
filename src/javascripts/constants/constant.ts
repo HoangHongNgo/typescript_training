@@ -27,9 +27,6 @@ export const ERROR_MESSAGE = {
   INIT_RELATION_LIST: "Couldn't initialize relation list",
   RENDER_CONTACT_LIST: "Couldn't display contact list",
   RENDER_CONTACT_INFO: "Couldn't display contact info",
-  OPEN_CONFIRM_MODAL: "Couldn't open confirm modal",
-  OPEN_ADD_MODAL: "Couldn't open add modal",
-  OPEN_EDIT_MODAL: "Couldn't open edit modal",
   GET_CONTACT_INFO: "Couldn't get contact info",
   DELETE_CONTACT: "Couldn't delete contact",
   ADD_CONTACT: "Couldn't add contact",
@@ -46,7 +43,7 @@ export const SUCCESS_MESSAGE = {
 };
 
 export const DEFAULT_AVATAR = {
-  DEFAULT: "https://ps.w.org/simple-user-avatar/assets/icon-256x256.png?rev=2413146",
+  DEFAULT: "https://ps.w.org/simple-user-avatar/assets/icon-256x256.png",
 };
 
 /**

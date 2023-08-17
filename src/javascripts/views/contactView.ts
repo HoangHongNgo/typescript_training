@@ -156,7 +156,7 @@ class ContactView {
 
   /**
    * Add event listener searching contacts to the search input.
-   * @param {FilterFnc} searchContact
+   * @param {FilterFnc} filterContact
    */
   addEventSearchContact = (filterContact: FilterFnc): void => {
     this.searchInputEl.addEventListener("keyup", (event) => {

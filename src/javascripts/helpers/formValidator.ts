@@ -12,7 +12,7 @@ interface validatorField {
   regex: RegExp;
   input: HTMLElement;
   error: HTMLElement;
-  requiredMessage: string;
+  requiredMessage?: string;
   invalidMessage: string;
 }
 
@@ -129,7 +129,7 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement): boo
     if (value.trim() === "") {
       if (field.required) {
         inputEl.classList.add("input--warning");
-        errorEl.textContent = field.requiredMessage;
+        errorEl.textContent = field.requiredMessage!;
         errorEl.classList.add("warning-text--active");
         isValid = false;
       }
