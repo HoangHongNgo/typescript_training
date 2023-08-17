@@ -1,6 +1,6 @@
 const jsonServer = require('json-server') // importing json-server library
 const server = jsonServer.create()
-const router = jsonServer.router('db.json')
+const router = jsonServer.router('server/db.json')
 const middlewares = jsonServer.defaults()
 const localIpAddress = require('local-ip-address')
 const Logger = require('@ptkdev/logger')
