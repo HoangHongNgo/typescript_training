@@ -103,9 +103,9 @@ class ContactTmpl {
                         <p class="text text--medium text--sm text--gray">
                             Company
                         </p>
-                        <a class="text text--medium text--sm text--black">
+                        <p class="text text--medium text--sm text--black">
                             ${contact.work.company}
-                        </a>
+                        </p>
                     </div>
                 </div>
             </div>
