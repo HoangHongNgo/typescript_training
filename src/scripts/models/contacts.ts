@@ -17,24 +17,44 @@ class ContactsModel {
     this.contactInfo = undefined;
   }
 
+  /**
+   * Initializing contact list and contact info.
+   */
   init = async (): Promise<void> => {
     const data: IContact[] = await this.service.getList();
     if (data) this.contactList = this.parseData(data);
     this.contactInfo = this.contactList[0];
   };
 
+  /**
+   * Parsing contact data from database to list of contact objects.
+   * @param {IContact[]} data
+   * @returns {Contact[]}
+   */
   parseData = (data: IContact[]): Contact[] => {
     return data.map((item: IContact) => new Contact(item));
   };
 
+  /**
+   * Get the current contact list.
+   * @returns {Contact[]} the current contact list.
+   */
   getContactList = (): Contact[] => {
     return this.contactList;
   };
 
+  /**
+   * Get the current contact info.
+   * @returns {Contact | undefined} the current contact info or undefined.
+   */
   getContactInfo = (): Contact | undefined => {
     return this.contactInfo;
   };
 
+  /**
+   * Setter for contact info.
+   * @param {string} id
+   */
   setContactInfo = (id: string): void => {
     const data: Contact | undefined = this.contactList.find((contact) => contact.id === id);
     this.contactInfo = data;
