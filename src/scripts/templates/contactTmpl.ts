@@ -14,7 +14,7 @@ class ContactTmpl {
   static renderContact = (contact: Contact): string => `
         <li class="contact-item row" data-id="${contact.id}">
             <div class="contact-item__avatar col-2">
-                <img src="${contact.avatar}" alt="avatar" />
+                <img width="70" height="77" src="${contact.avatar}" alt="avatar" />
             </div>
             <div class="contact-item__info col-3">
                 <p class="contact-item__info__name text text--black text--semibold text--lg">${contact.name}</p>
@@ -33,7 +33,7 @@ class ContactTmpl {
   static renderContactInfo = (contact: Contact): string => `
         <div class="info__head">
         <div class="info__head__avatar">
-            <img src="${contact.avatar}" alt="avatar" />
+            <img width="72" height="79" src="${contact.avatar}" alt="avatar" />
         </div>
         <p class="info__head__name text text--black text--normal text--lg">
             ${contact.name}
@@ -68,7 +68,7 @@ class ContactTmpl {
                         </a>
                     </div>
                     <a href=tel:"${contact.phone}" class="detail__right">
-                        <img src="https://res.cloudinary.com/de59jbjlb/image/upload/v1689827289/phone-icon_pvx8ut.svg" alt="phone" />
+                        <img width="22" height="18" src="https://res.cloudinary.com/de59jbjlb/image/upload/v1689827289/phone-icon_pvx8ut.svg" alt="phone" />
                     </a>
                 </div>
                 <div class="detail__line detail__line--email">
@@ -83,7 +83,7 @@ class ContactTmpl {
                         </a>
                     </div>
                     <a href="mailto:${contact.email}" class="detail__right">
-                        <img src="https://res.cloudinary.com/de59jbjlb/image/upload/v1689827289/mail-icon_kn7qdr.svg" alt="mail" />
+                        <img width="26" height="20" src="https://res.cloudinary.com/de59jbjlb/image/upload/v1689827289/mail-icon_kn7qdr.svg" alt="mail" />
                     </a>
                 </div>
             </div>
