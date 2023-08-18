@@ -195,7 +195,7 @@ class Controller {
    * Initializing the modals.
    */
   initModal = (): void => {
-    this.view.modal.addEventSubmission(this.saveContact, this.model.contact.findUniqueField);
+    this.view.modal.addEventSubmission(this.saveContact, this.model.contact.checkUniqueField);
     this.view.modal.addEventDeleteConfirmed(this.deleteContact);
     this.view.modal.addEventCancelModal();
     this.view.modal.addEventCancelConfirmed();

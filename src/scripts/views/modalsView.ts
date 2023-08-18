@@ -5,7 +5,7 @@ import formValidator from "../helpers/formValidator";
 
 type SaveContactFnc = (contact: IContactFormInfo) => Promise<void>;
 type DeleteContactFnc = (id: string) => Promise<void>;
-export type FindUniqueFieldFnc = <T>(fieldName: string, data: T) => string | null;
+export type CheckUniqueFieldFnc = <T>(fieldName: string, data: T) => string | null;
 
 class ModalsView {
   private modalEl: HTMLFormElement;
@@ -93,7 +93,7 @@ class ModalsView {
    * Add event listener for form submission.
    * @param {SaveContactFnc} saveContact
    */
-  addEventSubmission = (saveContact: SaveContactFnc, findUniqueField: FindUniqueFieldFnc): void => {
+  addEventSubmission = (saveContact: SaveContactFnc, checkUniqueField: CheckUniqueFieldFnc): void => {
     this.modalEl.addEventListener("submit", async (event) => {
       event.preventDefault();
       const contact: IContactFormInfo = {
@@ -109,7 +109,7 @@ class ModalsView {
         },
         about: this.modalEl.about.value,
       };
-      if (formValidator(contact, this.modalEl, findUniqueField)) {
+      if (formValidator(contact, this.modalEl, checkUniqueField)) {
         saveContact(contact);
         this.closeModal();
       }

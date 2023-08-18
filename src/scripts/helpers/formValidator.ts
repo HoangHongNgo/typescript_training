@@ -1,7 +1,7 @@
 import { VALIDATOR_MESSAGE as MESSAGE, REGEX } from "../constants/constant";
 import Contact from "../models/contact";
 import { IContactCommon, IContactFormInfo } from "../models/interfaces/contactIFace";
-import { FindUniqueFieldFnc } from "../views/modalsView";
+import { CheckUniqueFieldFnc } from "../views/modalsView";
 interface IContactValidator extends IContactCommon {
   job: string;
   company: string;
@@ -24,7 +24,7 @@ interface IValidatorField {
  * @param {IContactFormInfo} contact
  * @returns {HTMLFormElement} is the form valid.
  */
-const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement, findUniqueField: FindUniqueFieldFnc): boolean => {
+const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement, checkUniqueField: CheckUniqueFieldFnc): boolean => {
   const data: IContactValidator = {
     id: contact.id,
     name: contact.name,
@@ -141,8 +141,7 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement, find
       isValid = false;
     }
     // Check if the field value is unique
-    else if (field.unique && findUniqueField(field.name as string, value) !== contact.id) {
-      console.log(findUniqueField(field.name as string, value), contact.id);
+    else if (field.unique && checkUniqueField(field.name as string, value) !== contact.id) {
       inputEl.classList.add("input--warning");
       errorEl.textContent = field.takenMessage!;
       errorEl.classList.add("warning-text--active");
