@@ -19,11 +19,6 @@ interface IValidatorField {
   takenMessage?: string;
 }
 
-interface IUniqueField {
-  name: keyof Contact;
-  takenMsg: string;
-}
-
 /**
  * Form validator check if the information is valid.
  * @param {IContactFormInfo} contact
