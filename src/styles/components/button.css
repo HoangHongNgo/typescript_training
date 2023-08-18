@@ -1,0 +1,30 @@
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.btn {
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn--primary {
+  background-color: var(--primary-color);
+}
+
+.btn--primary:hover {
+  background-color: var(--primary-subcolor);
+}
+
+.btn--secondary {
+  background-color: var(--secondary-color);
+}
+
+.btn--secondary:hover {
+  background-color: var(--secondary-subcolor);
+}
