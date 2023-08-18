@@ -1,19 +1,27 @@
 import { VALIDATOR_MESSAGE as MESSAGE, REGEX } from "../constants/constant";
+import Contact from "../models/contact";
 import { IContactCommon, IContactFormInfo } from "../models/interfaces/contactIFace";
-
+import { FindUniqueFieldFnc } from "../views/modalsView";
 interface IContactValidator extends IContactCommon {
   job: string;
   company: string;
 }
 
-interface validatorField {
+interface IValidatorField {
   name: keyof IContactValidator;
-  required: boolean;
+  required?: boolean;
+  unique?: boolean;
   regex: RegExp;
   input: HTMLElement;
   error: HTMLElement;
   requiredMessage?: string;
   invalidMessage: string;
+  takenMessage?: string;
+}
+
+interface IUniqueField {
+  name: keyof Contact;
+  takenMsg: string;
 }
 
 /**
@@ -21,7 +29,7 @@ interface validatorField {
  * @param {IContactFormInfo} contact
  * @returns {HTMLFormElement} is the form valid.
  */
-const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement): boolean => {
+const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement, findUniqueField: FindUniqueFieldFnc): boolean => {
   const data: IContactValidator = {
     id: contact.id,
     name: contact.name,
@@ -52,7 +60,7 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement): boo
   let isValid = true;
 
   // Object to store field validation data
-  const fields: validatorField[] = [
+  const fields: IValidatorField[] = [
     {
       name: "name",
       required: true,
@@ -65,6 +73,7 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement): boo
     {
       name: "phone",
       required: true,
+      unique: true,
       regex: REGEX.PHONE,
       input: phoneInput,
       error: phoneError,
@@ -74,6 +83,7 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement): boo
     {
       name: "email",
       required: true,
+      unique: true,
       regex: REGEX.EMAIL,
       input: emailInput,
       error: emailError,
@@ -82,38 +92,30 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement): boo
     },
     {
       name: "avatar",
-      required: false,
       regex: REGEX.AVATAR,
       input: avatarInput,
       error: avatarError,
-      requiredMessage: MESSAGE.AVATAR_REQUIRED,
       invalidMessage: MESSAGE.INVALID_AVATAR,
     },
     {
       name: "job",
-      required: false,
       regex: REGEX.JOB,
       input: jobInput,
       error: jobError,
-      requiredMessage: MESSAGE.JOB_REQUIRED,
       invalidMessage: MESSAGE.INVALID_JOB,
     },
     {
       name: "company",
-      required: false,
       regex: REGEX.COMPANY,
       input: companyInput,
       error: companyError,
-      requiredMessage: MESSAGE.COMPANY_REQUIRED,
       invalidMessage: MESSAGE.INVALID_COMPANY,
     },
     {
       name: "about",
-      required: false,
       regex: REGEX.ABOUT,
       input: aboutInput,
       error: aboutError,
-      requiredMessage: MESSAGE.ABOUT_REQUIRED,
       invalidMessage: MESSAGE.INVALID_ABOUT,
     },
   ];
@@ -141,6 +143,9 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement): boo
       errorEl.classList.add("warning-text--active");
       isValid = false;
     }
+
+    // Check if the field value is unique
+
     // If the field is valid, remove any warning styling and message
     else {
       inputEl.classList.remove("input--warning");

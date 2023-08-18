@@ -16,6 +16,8 @@ export const VALIDATOR_MESSAGE = {
   INVALID_COMPANY: "The company is invalid",
   ABOUT_REQUIRED: "The about field is required",
   INVALID_ABOUT: "The about field is invalid",
+  PHONE_TAKEN: "The phone number has already been taken",
+  EMAIL_TAKEN: "The email has already been taken",
   CONFIRM_MESSAGE: "Do you want to delete contact: ",
 };
 
