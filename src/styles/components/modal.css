@@ -48,6 +48,7 @@
 .modal__inputs__field > .warning-text {
   visibility: hidden;
   margin-top: 7px;
+  height: 12px;
 }
 
 .modal__inputs__field > .warning-text--active {
