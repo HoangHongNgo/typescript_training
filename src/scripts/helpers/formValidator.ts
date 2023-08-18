@@ -79,6 +79,7 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement, find
       error: phoneError,
       requiredMessage: MESSAGE.PHONE_REQUIRED,
       invalidMessage: MESSAGE.INVALID_PHONE,
+      takenMessage: MESSAGE.PHONE_TAKEN,
     },
     {
       name: "email",
@@ -89,6 +90,7 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement, find
       error: emailError,
       requiredMessage: MESSAGE.EMAIL_REQUIRED,
       invalidMessage: MESSAGE.INVALID_EMAIL,
+      takenMessage: MESSAGE.EMAIL_TAKEN,
     },
     {
       name: "avatar",
@@ -143,8 +145,14 @@ const formValidator = (contact: IContactFormInfo, modalEl: HTMLFormElement, find
       errorEl.classList.add("warning-text--active");
       isValid = false;
     }
-
     // Check if the field value is unique
+    else if (field.unique && findUniqueField(field.name as string, value) !== contact.id) {
+      console.log(findUniqueField(field.name as string, value), contact.id);
+      inputEl.classList.add("input--warning");
+      errorEl.textContent = field.takenMessage!;
+      errorEl.classList.add("warning-text--active");
+      isValid = false;
+    }
 
     // If the field is valid, remove any warning styling and message
     else {

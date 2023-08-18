@@ -5,7 +5,7 @@ import formValidator from "../helpers/formValidator";
 
 type SaveContactFnc = (contact: IContactFormInfo) => Promise<void>;
 type DeleteContactFnc = (id: string) => Promise<void>;
-export type FindUniqueFieldFnc = <T>(fieldName: keyof Contact, data: T) => string | undefined;
+export type FindUniqueFieldFnc = <T>(fieldName: string, data: T) => string | null;
 
 class ModalsView {
   private modalEl: HTMLFormElement;

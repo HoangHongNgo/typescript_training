@@ -135,9 +135,9 @@ class ContactsModel {
     } else return this.contactList;
   };
 
-  findUniqueField = <T>(fieldName: keyof Contact, data: T): string | undefined => {
-    const contact: Contact | undefined = this.contactList.find((contact) => contact[fieldName] === data);
-    return contact?.id;
+  findUniqueField = <T>(fieldName: string, data: T): string | null => {
+    const contact: Contact | undefined = this.contactList.find((contact) => contact[fieldName as keyof Contact] === data);
+    return contact ? contact.id : null;
   };
 }
 
