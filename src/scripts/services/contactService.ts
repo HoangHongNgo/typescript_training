@@ -1,6 +1,6 @@
-import { IContact } from "../models/interfaces/contactIFace";
-import Service from "./service";
-import { API_GATEWAY_URL, PATH, QUERY } from "../constants/api";
+import { IContact } from '../models/interfaces/contactIFace';
+import Service from './service';
+import { API_GATEWAY_URL, PATH, QUERY } from '../constants/api';
 
 class ContactService extends Service<IContact> {
   private query: string;

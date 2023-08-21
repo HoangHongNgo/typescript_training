@@ -1,5 +1,5 @@
-import ContactsModel from "./contacts";
-import RelationsModel from "./relations";
+import ContactsModel from './contacts';
+import RelationsModel from './relations';
 
 class Model {
   contact: ContactsModel;

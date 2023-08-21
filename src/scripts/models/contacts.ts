@@ -1,7 +1,7 @@
-import ContactService from "../services/contactService";
-import { IFilter } from "../views/contactView";
-import Contact from "./contact";
-import { IContact } from "./interfaces/contactIFace";
+import ContactService from '../services/contactService';
+import { IFilter } from '../views/contactView';
+import Contact from './contact';
+import { IContact } from './interfaces/contactIFace';
 
 class ContactsModel {
   private service: ContactService;
@@ -56,7 +56,9 @@ class ContactsModel {
    * @param {string} id
    */
   setContactInfo = (id: string): void => {
-    const data: Contact | undefined = this.contactList.find((contact) => contact.id === id);
+    const data: Contact | undefined = this.contactList.find(
+      contact => contact.id === id,
+    );
     this.contactInfo = data;
   };
 
@@ -76,7 +78,7 @@ class ContactsModel {
    * @param {IContact} data
    */
   addContact = async (data: IContact): Promise<void> => {
-    const contact = new Contact(data);
+    const contact: Contact = new Contact(data);
     await this.service.add(contact);
     this.contactList.push(contact);
     this.contactInfo = contact;
@@ -87,9 +89,9 @@ class ContactsModel {
    * @param {IContact} data
    */
   editContact = async (data: IContact): Promise<void> => {
-    const contact = new Contact(data);
+    const contact: Contact = new Contact(data);
     await this.service.edit(contact.id, contact);
-    this.contactList = this.contactList.map((item) => {
+    this.contactList = this.contactList.map(item => {
       if (item.id === contact.id) {
         this.contactInfo = contact;
         return contact;
@@ -104,7 +106,7 @@ class ContactsModel {
    */
   deleteContactById = async (id: string): Promise<void> => {
     await this.service.delete(id);
-    this.contactList = this.contactList.filter((item) => item.id !== id);
+    this.contactList = this.contactList.filter(item => item.id !== id);
     this.contactInfo = this.contactList[0];
   };
 
@@ -116,17 +118,19 @@ class ContactsModel {
   filterList = (params?: IFilter): Contact[] => {
     if (params) {
       const { filter, searchKey } = params;
-      const result: Contact[] = this.contactList.filter((contact) => {
+      const result: Contact[] = this.contactList.filter(contact => {
         let isMatchFilter: boolean = true;
         let isMatchSearch: boolean = true;
         // Match with filter
-        if (filter.relation !== "0") {
+        if (filter.relation !== '0') {
           isMatchFilter = contact.relation.id === filter.relation;
         }
         // Match with search key
         if (searchKey) {
-          const fields: (keyof Contact)[] = ["name", "phone", "email", "work"];
-          isMatchSearch = fields.some((field) => contact[field].toString().toLowerCase().includes(searchKey));
+          const fields: (keyof Contact)[] = ['name', 'phone', 'email', 'work'];
+          isMatchSearch = fields.some(field =>
+            contact[field].toString().toLowerCase().includes(searchKey),
+          );
         }
         return isMatchFilter && isMatchSearch;
       });
@@ -136,7 +140,9 @@ class ContactsModel {
   };
 
   checkUniqueField = <T>(fieldName: string, data: T): string | null => {
-    const contact: Contact | undefined = this.contactList.find((contact) => contact[fieldName as keyof Contact] === data);
+    const contact: Contact | undefined = this.contactList.find(
+      contact => contact[fieldName as keyof Contact] === data,
+    );
     return contact ? contact.id : null;
   };
 }

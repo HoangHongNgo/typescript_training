@@ -1,7 +1,7 @@
-import { IContact } from "./interfaces/contactIFace";
-import { IRelation } from "./interfaces/relationIFace";
-import { v4 as uuidv4 } from "uuid";
-import { DEFAULT_AVATAR } from "../constants/constant";
+import { IContact } from './interfaces/contactIFace';
+import { IRelation } from './interfaces/relationIFace';
+import { v4 as uuidv4 } from 'uuid';
+import { DEFAULT_AVATAR } from '../constants/constant';
 
 class Contact implements IContact {
   id: string;

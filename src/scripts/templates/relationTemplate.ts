@@ -1,6 +1,6 @@
-import Relation from "../models/relation";
+import Relation from '../models/relation';
 
-class RelationTmpl {
+class RelationTemplate {
   /**
    * Constructor of Template object.
    */
@@ -26,4 +26,4 @@ class RelationTmpl {
     `;
 }
 
-export default RelationTmpl;
+export default RelationTemplate;
