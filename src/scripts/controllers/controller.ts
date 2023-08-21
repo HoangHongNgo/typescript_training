@@ -233,10 +233,10 @@ class Controller {
 
   /**
    * Display the snackbar on top of the window.
-   * @param {String} type
+   * @param {SnackbarType} type
    * @param {String} message
    */
-  displaySnackbar = (type: string, message: string): void => {
+  displaySnackbar = (type: SnackbarType, message: string): void => {
     this.view.snackbar.showSnackbar(type, message);
   };
 

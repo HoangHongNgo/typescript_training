@@ -10,8 +10,8 @@ export enum SnackbarType {
  * Types of validator result
  */
 export enum ValidatorResultType {
-  valid,
-  missing,
-  invalid,
-  existing,
+  Valid,
+  Missing,
+  Invalid,
+  Existing,
 }

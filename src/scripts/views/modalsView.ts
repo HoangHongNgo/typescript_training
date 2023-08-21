@@ -247,7 +247,7 @@ class ModalsView {
       const errorEl: HTMLElement = inputEl.nextElementSibling as HTMLElement;
 
       switch (field.result) {
-        case ValidatorResultType.valid:
+        case ValidatorResultType.Valid:
           inputEl.classList.remove('input--warning');
           errorEl.textContent = '';
           errorEl.classList.remove('warning-text--active');

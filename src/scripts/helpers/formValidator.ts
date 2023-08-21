@@ -23,20 +23,20 @@ const formValidator = (
   for (const field of validatorFields) {
     const value: string = field.input.value;
     const isValidField: boolean = field.regex.test(value);
-    let fieldResult: ValidatorResultType = ValidatorResultType.valid;
+    let fieldResult: ValidatorResultType = ValidatorResultType.Valid;
     let errorMsg: string = '';
 
     // Check if the field value is empty
     if (value.trim() === '') {
       if (field.requiredMsg) {
-        fieldResult = ValidatorResultType.missing;
+        fieldResult = ValidatorResultType.Missing;
         errorMsg = field.requiredMsg!;
       }
     }
 
     // Check if the field value matches the regex pattern
     else if (!isValidField) {
-      fieldResult = ValidatorResultType.invalid;
+      fieldResult = ValidatorResultType.Invalid;
       errorMsg = field.invalidMsg;
     }
 
@@ -46,7 +46,7 @@ const formValidator = (
       checkUniqueField(field.name, value) &&
       checkUniqueField(field.name, value) !== contactId
     ) {
-      fieldResult = ValidatorResultType.existing;
+      fieldResult = ValidatorResultType.Existing;
       errorMsg = field.takenMsg;
     }
 
