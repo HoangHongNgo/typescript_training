@@ -1,6 +1,6 @@
-import Contact from "../models/contact";
+import Contact from '../models/contact';
 
-class ContactTmpl {
+class ContactTemplate {
   /**
    * Constructor of the Template object.
    */
@@ -133,4 +133,4 @@ class ContactTmpl {
     `;
 }
 
-export default ContactTmpl;
+export default ContactTemplate;

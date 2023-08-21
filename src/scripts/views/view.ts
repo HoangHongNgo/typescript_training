@@ -1,8 +1,8 @@
-import ContactView from "./contactView";
-import LoadingView from "./loadingView";
-import ModalsView from "./modalsView";
-import RelationView from "./relationView";
-import SnackbarView from "./snackbarView";
+import ContactView from './contactView';
+import LoadingView from './loadingView';
+import ModalsView from './modalsView';
+import RelationView from './relationView';
+import SnackbarView from './snackbarView';
 
 class View {
   contact: ContactView;

@@ -19,7 +19,10 @@ class ApiRequest<T> {
    * @return {Promise<T>} response from server.
    */
   getById = (id: string, query?: string): Promise<T> => {
-    return this.sendRequest<T>(`${this.path}${id ? `/${id}/` : ""}${query ? query : ""}`, "GET");
+    return this.sendRequest<T>(
+      `${this.path}${id ? `/${id}/` : ''}${query ? query : ''}`,
+      'GET',
+    );
   };
 
   /**
@@ -28,7 +31,7 @@ class ApiRequest<T> {
    * @return {Promise<T[]>} response from server.
    */
   getList = (query?: string): Promise<T[]> => {
-    return this.sendRequest<T[]>(`${this.path}${query ? query : ""}`, "GET");
+    return this.sendRequest<T[]>(`${this.path}${query ? query : ''}`, 'GET');
   };
 
   /**
@@ -36,7 +39,7 @@ class ApiRequest<T> {
    * @param {T} data
    */
   post = async <T>(data: T): Promise<void> => {
-    await this.sendRequest<T>(`${this.path}`, "POST", data);
+    await this.sendRequest<T>(`${this.path}`, 'POST', data);
   };
 
   /**
@@ -44,7 +47,7 @@ class ApiRequest<T> {
    * @param {String} id
    */
   put = async <T>(id: string, data: T): Promise<void> => {
-    await this.sendRequest<T>(`${this.path}/${id}`, "PUT", data);
+    await this.sendRequest<T>(`${this.path}/${id}`, 'PUT', data);
   };
 
   /**
@@ -52,7 +55,7 @@ class ApiRequest<T> {
    * @param {String} id
    */
   patch = async <T>(id: string, data: T): Promise<void> => {
-    await this.sendRequest<T>(`${this.path}/${id}`, "PATCH", data);
+    await this.sendRequest<T>(`${this.path}/${id}`, 'PATCH', data);
   };
 
   /**
@@ -60,7 +63,7 @@ class ApiRequest<T> {
    * @param {String} id
    */
   delete = async (id: string): Promise<void> => {
-    await this.sendRequest<T>(`${this.path}/${id}`, "DELETE");
+    await this.sendRequest<T>(`${this.path}/${id}`, 'DELETE');
   };
 
   /**
@@ -69,12 +72,16 @@ class ApiRequest<T> {
    * @param {T} body(optional)
    * @return {Promise<T>} response from server.
    */
-  sendRequest = async <T>(path: string, method: string, body?: T): Promise<T> => {
+  sendRequest = async <T>(
+    path: string,
+    method: string,
+    body?: T,
+  ): Promise<T> => {
     const url = `${this.baseUrl}${path}`;
     const response: Response = await fetch(url, {
       method,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     });
@@ -82,7 +89,7 @@ class ApiRequest<T> {
       const data = (await response.json()) as T;
       return data;
     } else {
-      throw new Error("Error while sending request");
+      throw new Error('Error while sending request');
     }
   };
 }

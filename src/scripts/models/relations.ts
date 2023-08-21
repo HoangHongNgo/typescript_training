@@ -1,6 +1,6 @@
-import RelationService from "../services/relationService";
-import { IRelation } from "./interfaces/relationIFace";
-import Relation from "./relation";
+import RelationService from '../services/relationService';
+import { IRelation } from './interfaces/relationIFace';
+import Relation from './relation';
 
 class RelationsModel {
   service: RelationService;
@@ -28,7 +28,7 @@ class RelationsModel {
    * @returns {Relation[]} array of Relation objects.
    */
   parseData = (data: IRelation[]): Relation[] => {
-    return data.map((item) => new Relation(item));
+    return data.map(item => new Relation(item));
   };
 
   /**
@@ -45,7 +45,7 @@ class RelationsModel {
    * @returns {Relation | undefined} a relation object.
    */
   getRelationById = (id: string): Relation | undefined => {
-    return this.relationList.find((relation) => relation.id === id);
+    return this.relationList.find(relation => relation.id === id);
   };
 }
 

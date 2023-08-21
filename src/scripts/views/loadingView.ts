@@ -5,7 +5,7 @@ class LoadingView {
    * Constructor function for LoadingView object.
    */
   constructor() {
-    this.loadingEl = document.querySelector(".loading")!;
+    this.loadingEl = document.querySelector('.loading')!;
   }
 
   //----- RENDERING -----//
@@ -14,14 +14,14 @@ class LoadingView {
    * Display the loading gif.
    */
   displayLoading = () => {
-    this.loadingEl.classList.add("loading--show");
+    this.loadingEl.classList.add('loading--show');
   };
 
   /**
    * Close the loading gif.
    */
   closeLoading = () => {
-    this.loadingEl.classList.remove("loading--show");
+    this.loadingEl.classList.remove('loading--show');
   };
 }
 

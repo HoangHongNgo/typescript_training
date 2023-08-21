@@ -1,5 +1,5 @@
-import Contact from "../models/contact";
-import ContactTmpl from "../templates/contactTmpl";
+import Contact from '../models/contact';
+import ContactTemplate from '../templates/contactTemplate';
 
 export interface IFilter {
   searchKey: string;
@@ -32,17 +32,17 @@ class ContactView {
    * Constructor of ContactView object
    */
   constructor() {
-    this.contactListEl = document.querySelector(".contacts__list")!;
-    this.infoEl = document.querySelector(".info")!;
-    this.addBtnEl = document.querySelector(".features__add")!;
-    this.searchInputEl = document.querySelector(".features__search__input")!;
-    this.filterBtnEl = document.querySelector(".features__filter > button")!;
-    this.filterDropDown = document.querySelector(".relation-dropdown")!;
-    this.contactEl = ".contact-item";
+    this.contactListEl = document.querySelector('.contacts__list')!;
+    this.infoEl = document.querySelector('.info')!;
+    this.addBtnEl = document.querySelector('.features__add')!;
+    this.searchInputEl = document.querySelector('.features__search__input')!;
+    this.filterBtnEl = document.querySelector('.features__filter > button')!;
+    this.filterDropDown = document.querySelector('.relation-dropdown')!;
+    this.contactEl = '.contact-item';
     this.filterParams = {
-      searchKey: "",
+      searchKey: '',
       filter: {
-        relation: "0",
+        relation: '0',
       },
     };
   }
@@ -54,8 +54,8 @@ class ContactView {
    * @param {Contact[]} contacts
    */
   renderContactList = (contacts: Contact[]): void => {
-    this.contactListEl.innerHTML = "";
-    contacts.forEach((contact) => {
+    this.contactListEl.innerHTML = '';
+    contacts.forEach(contact => {
       this.renderContact(contact);
     });
   };
@@ -65,7 +65,7 @@ class ContactView {
    * @param {Contact} contact
    */
   renderContact = (contact: Contact): void => {
-    const contactTemplate = ContactTmpl.renderContact(contact);
+    const contactTemplate = ContactTemplate.renderContact(contact);
     this.contactListEl.innerHTML += contactTemplate;
   };
 
@@ -75,19 +75,23 @@ class ContactView {
    * @param {OpenConfirmModalFnc} openConfirmModal
    * @param {OpenModalFnc} openEditModal
    */
-  renderContactInfo = (contactInfo: Contact, openConfirmModal: OpenConfirmModalFnc, openEditModal: OpenEditModalFnc): void => {
+  renderContactInfo = (
+    contactInfo: Contact,
+    openConfirmModal: OpenConfirmModalFnc,
+    openEditModal: OpenEditModalFnc,
+  ): void => {
     if (contactInfo) {
-      this.infoEl.innerHTML = ContactTmpl.renderContactInfo(contactInfo);
-      this.deleteBtnEl = this.infoEl.querySelector(".info__button__delete")!;
-      this.editBtnEl = this.infoEl.querySelector(".info__button__edit")!;
-      this.infoNavEl = this.infoEl.querySelector(".info__nav")!;
-      this.navBgrEl = this.infoNavEl.querySelector(".info__nav__active")!;
-      this.infoTypeEl = ".info__nav__title";
+      this.infoEl.innerHTML = ContactTemplate.renderContactInfo(contactInfo);
+      this.deleteBtnEl = this.infoEl.querySelector('.info__button__delete')!;
+      this.editBtnEl = this.infoEl.querySelector('.info__button__edit')!;
+      this.infoNavEl = this.infoEl.querySelector('.info__nav')!;
+      this.navBgrEl = this.infoNavEl.querySelector('.info__nav__active')!;
+      this.infoTypeEl = '.info__nav__title';
       this.addEventDeleteContact(this.deleteBtnEl, openConfirmModal);
       this.addEventEditContact(this.editBtnEl, openEditModal);
       this.addDelegateChangeInfoType(this.infoNavEl);
     } else {
-      this.infoEl.innerHTML = "";
+      this.infoEl.innerHTML = '';
     }
   };
 
@@ -98,12 +102,16 @@ class ContactView {
    * @param {ShowInfoFnc} showInfo
    */
   addDelegateShowInfo = (showInfo: ShowInfoFnc): void => {
-    this.contactListEl.addEventListener("click", (event) => {
-      const el: Element | null = (event.target as Element).closest(this.contactEl);
+    this.contactListEl.addEventListener('click', event => {
+      const el: Element | null = (event.target as Element).closest(
+        this.contactEl,
+      );
       if (el) {
-        this.contactListEl.querySelector(this.contactEl + ".contact-item--active")?.classList.remove("contact-item--active");
-        el.classList.add("contact-item--active");
-        const contactId = el.getAttribute("data-id")!;
+        this.contactListEl
+          .querySelector(this.contactEl + '.contact-item--active')
+          ?.classList.remove('contact-item--active');
+        el.classList.add('contact-item--active');
+        const contactId = el.getAttribute('data-id')!;
         showInfo(contactId);
       }
     });
@@ -114,11 +122,20 @@ class ContactView {
    * @param {HTMLElement} el
    */
   addDelegateChangeInfoType = (el: HTMLElement): void => {
-    el.addEventListener("click", (event) => {
-      const typeId = (event.target as Element).closest(this.infoTypeEl!)?.getAttribute("data-id") as unknown as number;
-      this.navBgrEl?.setAttribute("style", `transform: translateX(${-150 + typeId * 100}%);`);
-      this.infoEl?.querySelector(".detail--show")?.classList.remove("detail--show");
-      this.infoEl?.querySelectorAll(".detail")[typeId]?.classList.add("detail--show");
+    el.addEventListener('click', event => {
+      const typeId = (event.target as Element)
+        .closest(this.infoTypeEl!)
+        ?.getAttribute('data-id') as unknown as number;
+      this.navBgrEl?.setAttribute(
+        'style',
+        `transform: translateX(${-150 + typeId * 100}%);`,
+      );
+      this.infoEl
+        ?.querySelector('.detail--show')
+        ?.classList.remove('detail--show');
+      this.infoEl
+        ?.querySelectorAll('.detail')
+        [typeId]?.classList.add('detail--show');
     });
   };
 
@@ -127,7 +144,7 @@ class ContactView {
    * @param {OpenModalFnc} openAddModal
    */
   addEventOpenAddModal = (openAddModal: OpenAddModalFnc): void => {
-    this.addBtnEl.addEventListener("click", () => {
+    this.addBtnEl.addEventListener('click', () => {
       openAddModal();
     });
   };
@@ -136,9 +153,14 @@ class ContactView {
    * Add event listener deleting a contact action to the delete contact button.
    * @param {OpenConfirmModalFnc} openConfirmModal
    */
-  addEventDeleteContact = (el: HTMLElement, openConfirmModal: OpenConfirmModalFnc): void => {
-    el.addEventListener("click", (event) => {
-      const contactId = ((event.target as HTMLElement).parentNode as HTMLElement).getAttribute("data-id")!;
+  addEventDeleteContact = (
+    el: HTMLElement,
+    openConfirmModal: OpenConfirmModalFnc,
+  ): void => {
+    el.addEventListener('click', event => {
+      const contactId = (
+        (event.target as HTMLElement).parentNode as HTMLElement
+      ).getAttribute('data-id')!;
       openConfirmModal(contactId);
     });
   };
@@ -147,9 +169,14 @@ class ContactView {
    * Add event listener editing a contact action to the edit contact button.
    * @param {OpenModalFnc} openEditModal
    */
-  addEventEditContact = (el: HTMLElement, openEditModal: OpenEditModalFnc): void => {
-    el.addEventListener("click", (event) => {
-      const contactId = ((event.target as HTMLElement).parentNode as HTMLElement).getAttribute("data-id")!;
+  addEventEditContact = (
+    el: HTMLElement,
+    openEditModal: OpenEditModalFnc,
+  ): void => {
+    el.addEventListener('click', event => {
+      const contactId = (
+        (event.target as HTMLElement).parentNode as HTMLElement
+      ).getAttribute('data-id')!;
       openEditModal(contactId);
     });
   };
@@ -159,8 +186,10 @@ class ContactView {
    * @param {FilterFnc} filterContact
    */
   addEventSearchContact = (filterContact: FilterFnc): void => {
-    this.searchInputEl.addEventListener("keyup", (event) => {
-      this.filterParams.searchKey = (event.target as HTMLInputElement).value.toLowerCase();
+    this.searchInputEl.addEventListener('keyup', event => {
+      this.filterParams.searchKey = (
+        event.target as HTMLInputElement
+      ).value.toLowerCase();
       filterContact(this.filterParams);
     });
   };
@@ -169,9 +198,9 @@ class ContactView {
    * Add event listenter showing filter options to the filter button.
    */
   addEventShowFilterOptions = (): void => {
-    this.filterBtnEl.addEventListener("click", () => {
-      this.filterBtnEl.querySelector("img")!.classList.toggle("rot-90");
-      this.filterDropDown.classList.toggle("relation-dropdown--active");
+    this.filterBtnEl.addEventListener('click', () => {
+      this.filterBtnEl.querySelector('img')!.classList.toggle('rot-90');
+      this.filterDropDown.classList.toggle('relation-dropdown--active');
     });
   };
 
@@ -180,8 +209,10 @@ class ContactView {
    * @param {FilterFnc} filterContact
    */
   addDelegateFilterContact = (filterContact: FilterFnc): void => {
-    this.filterDropDown.addEventListener("change", (event) => {
-      const el: HTMLInputElement = (event.target as HTMLElement).closest("input")!;
+    this.filterDropDown.addEventListener('change', event => {
+      const el: HTMLInputElement = (event.target as HTMLElement).closest(
+        'input',
+      )!;
       this.filterParams.filter.relation = el.value;
       filterContact(this.filterParams);
     });

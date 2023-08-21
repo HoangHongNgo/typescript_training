@@ -1,11 +1,11 @@
-import Contact from "../models/contact";
-import Model from "../models/model";
-import View from "../views/view";
-import { ERROR_MESSAGE, SUCCESS_MESSAGE } from "../constants/constant";
-import { IContact, IContactFormInfo } from "../models/interfaces/contactIFace";
-import { IFilter } from "../views/contactView";
-import Relation from "../models/relation";
-import { SnackbarType } from "../enums/enums";
+import Contact from '../models/contact';
+import Model from '../models/model';
+import View from '../views/view';
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/constant';
+import { IContact, IContactCommon } from '../models/interfaces/contactIFace';
+import { IFilter } from '../views/contactView';
+import Relation from '../models/relation';
+import { SnackbarType } from '../enums/enums';
 
 class Controller {
   private model: Model;
@@ -40,23 +40,26 @@ class Controller {
   initContacts = async (): Promise<void> => {
     try {
       await this.model.contact.init();
+      this.loadListContacts();
+      this.showInfo();
+      this.view.contact.addEventOpenAddModal(this.openAddModal);
+      this.view.contact.addDelegateShowInfo(this.showInfo);
+      this.view.contact.addEventSearchContact(this.filterContact);
+      this.view.contact.addEventShowFilterOptions();
+      this.view.contact.addDelegateFilterContact(this.filterContact);
     } catch {
-      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.INIT_CONTACT_LIST);
+      this.displaySnackbar(
+        SnackbarType.Warning,
+        ERROR_MESSAGE.INIT_CONTACT_LIST,
+      );
     }
-    this.loadListContacts();
-    this.showInfo();
-    this.view.contact.addEventOpenAddModal(this.openAddModal);
-    this.view.contact.addDelegateShowInfo(this.showInfo);
-    this.view.contact.addEventSearchContact(this.filterContact);
-    this.view.contact.addEventShowFilterOptions();
-    this.view.contact.addDelegateFilterContact(this.filterContact);
   };
 
   /**
    * Add or edit a contact and display the new contact list.
    * @param {IContactFormInfo} data
    */
-  saveContact = async (data: IContactFormInfo): Promise<void> => {
+  saveContact = async (data: IContactCommon): Promise<void> => {
     const contact: IContact = {
       ...data,
       relation: this.model.relation.getRelationById(data.relationId)!,
@@ -72,7 +75,10 @@ class Controller {
     } else {
       try {
         await this.model.contact.editContact(contact);
-        this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.EDIT_CONTACT);
+        this.displaySnackbar(
+          SnackbarType.Success,
+          SUCCESS_MESSAGE.EDIT_CONTACT,
+        );
       } catch {
         this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.EDIT_CONTACT);
       }
@@ -91,7 +97,10 @@ class Controller {
     try {
       this.view.contact.renderContactList(contacts);
     } catch {
-      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.RENDER_CONTACT_LIST);
+      this.displaySnackbar(
+        SnackbarType.Warning,
+        ERROR_MESSAGE.RENDER_CONTACT_LIST,
+      );
     }
   };
 
@@ -101,9 +110,14 @@ class Controller {
    */
   showInfo = async (contactId?: string | null): Promise<void> => {
     if (contactId) this.model.contact.setContactInfo(contactId);
-    const contactInfo: Contact | undefined = this.model.contact.getContactInfo();
+    const contactInfo: Contact | undefined =
+      this.model.contact.getContactInfo();
     if (contactInfo) {
-      this.view.contact.renderContactInfo(contactInfo, this.openConfirmDltModal, this.openEditModal);
+      this.view.contact.renderContactInfo(
+        contactInfo,
+        this.openConfirmDltModal,
+        this.openEditModal,
+      );
     }
   };
 
@@ -114,10 +128,14 @@ class Controller {
   openConfirmDltModal = async (contactId: string): Promise<void> => {
     try {
       this.displayLoading();
-      const contact: Contact = await this.model.contact.getContactById(contactId);
+      const contact: Contact =
+        await this.model.contact.getContactById(contactId);
       this.view.modal.openConfirmModal(contact);
     } catch {
-      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.GET_CONTACT_INFO);
+      this.displaySnackbar(
+        SnackbarType.Warning,
+        ERROR_MESSAGE.GET_CONTACT_INFO,
+      );
     } finally {
       this.closeLoading();
     }
@@ -138,7 +156,10 @@ class Controller {
     try {
       this.displayLoading();
       await this.model.contact.deleteContactById(contactId);
-      this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.DELETE_CONTACT);
+      this.displaySnackbar(
+        SnackbarType.Success,
+        SUCCESS_MESSAGE.DELETE_CONTACT,
+      );
     } catch {
       this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.DELETE_CONTACT);
     } finally {
@@ -155,10 +176,14 @@ class Controller {
   openEditModal = async (contactId: string): Promise<void> => {
     try {
       this.displayLoading();
-      const contact: Contact = await this.model.contact.getContactById(contactId);
-      this.view.modal.openModal(contactId, contact);
+      const contact: Contact =
+        await this.model.contact.getContactById(contactId);
+      this.view.modal.openModal(contact);
     } catch {
-      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.GET_CONTACT_INFO);
+      this.displaySnackbar(
+        SnackbarType.Warning,
+        ERROR_MESSAGE.GET_CONTACT_INFO,
+      );
     } finally {
       this.closeLoading();
     }
@@ -181,12 +206,15 @@ class Controller {
   initRelations = async (): Promise<void> => {
     try {
       await this.model.relation.init();
+      const relations: Relation[] = this.model.relation.getRelations();
+      this.view.relation.renderRelationList(relations);
+      this.view.relation.renderRelationDropdownList(relations);
     } catch {
-      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.INIT_RELATION_LIST);
+      this.displaySnackbar(
+        SnackbarType.Warning,
+        ERROR_MESSAGE.INIT_RELATION_LIST,
+      );
     }
-    const relations: Relation[] = this.model.relation.getRelations();
-    this.view.relation.renderRelationList(relations);
-    this.view.relation.renderRelationDropdownList(relations);
   };
 
   //----- MODAL CONTROLLER -----//
@@ -195,7 +223,10 @@ class Controller {
    * Initializing the modals.
    */
   initModal = (): void => {
-    this.view.modal.addEventSubmission(this.saveContact, this.model.contact.checkUniqueField);
+    this.view.modal.addEventSubmission(
+      this.saveContact,
+      this.model.contact.checkUniqueField,
+    );
     this.view.modal.addEventDeleteConfirmed(this.deleteContact);
     this.view.modal.addEventCancelModal();
     this.view.modal.addEventCancelConfirmed();

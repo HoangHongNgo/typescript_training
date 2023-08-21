@@ -1,5 +1,5 @@
-import Relation from "../models/relation";
-import RelationTmpl from "../templates/relationTmpl";
+import Relation from '../models/relation';
+import RelationTemplate from '../templates/relationTemplate';
 
 class RelationView {
   private relationListEl: HTMLElement;
@@ -9,8 +9,8 @@ class RelationView {
    * Constructor of RelationView object
    */
   constructor() {
-    this.relationListEl = document.querySelector(".relation-list")!;
-    this.relationDropDownEl = document.querySelector(".relation-dropdown")!;
+    this.relationListEl = document.querySelector('.relation-list')!;
+    this.relationDropDownEl = document.querySelector('.relation-dropdown')!;
   }
 
   //----- RENDERING -----//
@@ -20,7 +20,7 @@ class RelationView {
    * @param {Relation[]} relations
    */
   renderRelationList = (relations: Relation[]): void => {
-    relations.forEach((relation) => {
+    relations.forEach(relation => {
       this.renderRelation(relation);
     });
   };
@@ -30,7 +30,7 @@ class RelationView {
    * @param {Relation[]} relations
    */
   renderRelationDropdownList = (relations: Relation[]): void => {
-    relations.forEach((relation) => {
+    relations.forEach(relation => {
       this.renderRelationDropdown(relation);
     });
   };
@@ -40,7 +40,8 @@ class RelationView {
    * @param {Relation} relation
    */
   renderRelation = (relation: Relation): void => {
-    const relationTemplate: string = RelationTmpl.renderRelationOpt(relation);
+    const relationTemplate: string =
+      RelationTemplate.renderRelationOpt(relation);
     this.relationListEl.innerHTML += relationTemplate;
   };
 
@@ -49,7 +50,8 @@ class RelationView {
    * @param {Relation} relation
    */
   renderRelationDropdown = (relation: Relation): void => {
-    const relationDropDownTemplate: string = RelationTmpl.renderRelationDropDown(relation);
+    const relationDropDownTemplate: string =
+      RelationTemplate.renderRelationDropDown(relation);
     this.relationDropDownEl.innerHTML += relationDropDownTemplate;
   };
 }

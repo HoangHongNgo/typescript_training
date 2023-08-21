@@ -1,4 +1,4 @@
-import { IRelation } from "./relationIFace";
+import { IRelation } from './relationIFace';
 
 export interface IContactCommon {
   id: string | null;
@@ -8,15 +8,12 @@ export interface IContactCommon {
   email: string;
   avatar: string;
   about: string;
-}
-
-export interface IContactFormInfo extends IContactCommon {
   work: {
     job: string;
     company: string;
   };
 }
 
-export interface IContact extends IContactFormInfo {
+export interface IContact extends IContactCommon {
   relation: IRelation;
 }

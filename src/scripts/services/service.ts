@@ -1,4 +1,4 @@
-import ApiRequest from "../helpers/apiRequest";
+import ApiRequest from '../helpers/apiRequest';
 
 abstract class Service<T> {
   protected apiRequest: ApiRequest<T>;

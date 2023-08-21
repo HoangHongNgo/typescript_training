@@ -1,7 +1,17 @@
 /**
- * Enums for Types of SnackBar
+ * Types of SnackBar
  */
 export enum SnackbarType {
-  Warning = "warning",
-  Success = "success",
+  Warning = 'warning',
+  Success = 'success',
+}
+
+/**
+ * Types of validator result
+ */
+export enum ValidatorResultType {
+  valid,
+  missing,
+  invalid,
+  existing,
 }
