@@ -2,7 +2,7 @@ import Contact from '../models/contact';
 import Model from '../models/model';
 import View from '../views/view';
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/constant';
-import { IContact, IContactCommon } from '../models/interfaces/contactIFace';
+import { IContact, IContactCommon } from '../models/interfaces/contactInterface';
 import { IFilter } from '../views/contactView';
 import Relation from '../models/relation';
 import { SnackbarType } from '../enums/enums';
@@ -48,10 +48,7 @@ class Controller {
       this.view.contact.addEventShowFilterOptions();
       this.view.contact.addDelegateFilterContact(this.filterContact);
     } catch {
-      this.displaySnackbar(
-        SnackbarType.Warning,
-        ERROR_MESSAGE.INIT_CONTACT_LIST,
-      );
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.INIT_CONTACT_LIST);
     }
   };
 
@@ -64,28 +61,44 @@ class Controller {
       ...data,
       relation: this.model.relation.getRelationById(data.relationId)!,
     };
+
     this.displayLoading();
+
     if (!contact.id) {
-      try {
-        await this.model.contact.addContact(contact);
-        this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.ADD_CONTACT);
-      } catch {
-        this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.ADD_CONTACT);
-      }
+      await this.addContact(contact);
     } else {
-      try {
-        await this.model.contact.editContact(contact);
-        this.displaySnackbar(
-          SnackbarType.Success,
-          SUCCESS_MESSAGE.EDIT_CONTACT,
-        );
-      } catch {
-        this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.EDIT_CONTACT);
-      }
+      await this.editContact(contact);
     }
+
     this.closeLoading();
     this.loadListContacts();
     this.showInfo(contact.id);
+  };
+
+  /**
+   * Add a contact to model
+   * @param {IContact} contact
+   */
+  addContact = async (contact: IContact) => {
+    try {
+      await this.model.contact.addContact(contact);
+      this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.ADD_CONTACT);
+    } catch {
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.ADD_CONTACT);
+    }
+  };
+
+  /**
+   * Edit a contact from model
+   * @param {IContact} contact
+   */
+  editContact = async (contact: IContact) => {
+    try {
+      await this.model.contact.editContact(contact);
+      this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.EDIT_CONTACT);
+    } catch {
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.EDIT_CONTACT);
+    }
   };
 
   /**
@@ -94,13 +107,11 @@ class Controller {
    */
   loadListContacts = (filterParams?: IFilter): void => {
     const contacts: Contact[] = this.model.contact.filterList(filterParams);
+
     try {
       this.view.contact.renderContactList(contacts);
     } catch {
-      this.displaySnackbar(
-        SnackbarType.Warning,
-        ERROR_MESSAGE.RENDER_CONTACT_LIST,
-      );
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.RENDER_CONTACT_LIST);
     }
   };
 
@@ -110,8 +121,9 @@ class Controller {
    */
   showInfo = async (contactId?: string | null): Promise<void> => {
     if (contactId) this.model.contact.setContactInfo(contactId);
-    const contactInfo: Contact | undefined =
-      this.model.contact.getContactInfo();
+
+    const contactInfo: Contact | undefined = this.model.contact.getContactInfo();
+
     if (contactInfo) {
       this.view.contact.renderContactInfo(
         contactInfo,
@@ -128,14 +140,10 @@ class Controller {
   openConfirmDltModal = async (contactId: string): Promise<void> => {
     try {
       this.displayLoading();
-      const contact: Contact =
-        await this.model.contact.getContactById(contactId);
+      const contact: Contact = await this.model.contact.getContactById(contactId);
       this.view.modal.openConfirmModal(contact);
     } catch {
-      this.displaySnackbar(
-        SnackbarType.Warning,
-        ERROR_MESSAGE.GET_CONTACT_INFO,
-      );
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.GET_CONTACT_INFO);
     } finally {
       this.closeLoading();
     }
@@ -156,15 +164,13 @@ class Controller {
     try {
       this.displayLoading();
       await this.model.contact.deleteContactById(contactId);
-      this.displaySnackbar(
-        SnackbarType.Success,
-        SUCCESS_MESSAGE.DELETE_CONTACT,
-      );
+      this.displaySnackbar(SnackbarType.Success, SUCCESS_MESSAGE.DELETE_CONTACT);
     } catch {
       this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.DELETE_CONTACT);
     } finally {
       this.closeLoading();
     }
+
     this.loadListContacts();
     this.showInfo();
   };
@@ -176,14 +182,10 @@ class Controller {
   openEditModal = async (contactId: string): Promise<void> => {
     try {
       this.displayLoading();
-      const contact: Contact =
-        await this.model.contact.getContactById(contactId);
+      const contact: Contact = await this.model.contact.getContactById(contactId);
       this.view.modal.openModal(contact);
     } catch {
-      this.displaySnackbar(
-        SnackbarType.Warning,
-        ERROR_MESSAGE.GET_CONTACT_INFO,
-      );
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.GET_CONTACT_INFO);
     } finally {
       this.closeLoading();
     }
@@ -210,10 +212,7 @@ class Controller {
       this.view.relation.renderRelationList(relations);
       this.view.relation.renderRelationDropdownList(relations);
     } catch {
-      this.displaySnackbar(
-        SnackbarType.Warning,
-        ERROR_MESSAGE.INIT_RELATION_LIST,
-      );
+      this.displaySnackbar(SnackbarType.Warning, ERROR_MESSAGE.INIT_RELATION_LIST);
     }
   };
 
@@ -223,10 +222,7 @@ class Controller {
    * Initializing the modals.
    */
   initModal = (): void => {
-    this.view.modal.addEventSubmission(
-      this.saveContact,
-      this.model.contact.checkUniqueField,
-    );
+    this.view.modal.addEventSubmission(this.saveContact, this.model.contact.checkUniqueField);
     this.view.modal.addEventDeleteConfirmed(this.deleteContact);
     this.view.modal.addEventCancelModal();
     this.view.modal.addEventCancelConfirmed();

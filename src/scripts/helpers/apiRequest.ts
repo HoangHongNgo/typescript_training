@@ -19,10 +19,7 @@ class ApiRequest<T> {
    * @return {Promise<T>} response from server.
    */
   getById = (id: string, query?: string): Promise<T> => {
-    return this.sendRequest<T>(
-      `${this.path}${id ? `/${id}/` : ''}${query ? query : ''}`,
-      'GET',
-    );
+    return this.sendRequest<T>(`${this.path}/${id}/${query || ''}`, 'GET');
   };
 
   /**
@@ -72,12 +69,9 @@ class ApiRequest<T> {
    * @param {T} body(optional)
    * @return {Promise<T>} response from server.
    */
-  sendRequest = async <T>(
-    path: string,
-    method: string,
-    body?: T,
-  ): Promise<T> => {
+  sendRequest = async <T>(path: string, method: string, body?: T): Promise<T> => {
     const url = `${this.baseUrl}${path}`;
+
     const response: Response = await fetch(url, {
       method,
       headers: {
@@ -85,6 +79,7 @@ class ApiRequest<T> {
       },
       body: JSON.stringify(body),
     });
+
     if (response.ok) {
       const data = (await response.json()) as T;
       return data;

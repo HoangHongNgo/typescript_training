@@ -1,16 +1,13 @@
 import Contact from '../models/contact';
 import { VALIDATOR_MESSAGE } from '../constants/constant';
-import { IContactCommon } from './../models/interfaces/contactIFace';
+import { IContactCommon } from '../models/interfaces/contactInterface';
 import formValidator from '../helpers/formValidator';
 import { VALIDATOR_MESSAGE as MESSAGE, REGEX } from '../constants/constant';
 import { ValidatorResultType } from '../enums/enums';
 
 type SaveContactFnc = (contact: IContactCommon) => Promise<void>;
 type DeleteContactFnc = (id: string) => Promise<void>;
-export type CheckUniqueFieldFnc = <T>(
-  fieldName: string,
-  data: T,
-) => string | null;
+export type CheckUniqueFieldFnc = <T>(fieldName: string, data: T) => string | null;
 export interface IValidatorField {
   name: string;
   input: HTMLInputElement | HTMLTextAreaElement;
@@ -45,12 +42,8 @@ class ModalsView {
     this.cancelModalBtnEl = this.modalEl.querySelectorAll(
       '.modal__top__btn,.modal__buttons__cancel',
     )!;
-    this.confirmBtnEl = this.confirmModalEl.querySelector(
-      '.confirm-modal__buttons__confirm',
-    )!;
-    this.cancelConfirmBtnEl = this.confirmModalEl.querySelector(
-      '.confirm-modal__buttons__cancel',
-    )!;
+    this.confirmBtnEl = this.confirmModalEl.querySelector('.confirm-modal__buttons__confirm')!;
+    this.cancelConfirmBtnEl = this.confirmModalEl.querySelector('.confirm-modal__buttons__cancel')!;
 
     this.nameInputEl = this.modalEl.querySelector('input[name="name"]')!;
     this.phoneInputEl = this.modalEl.phone;
@@ -72,32 +65,19 @@ class ModalsView {
     this.overlayEl.classList.add('overlay--active');
     if (contact) {
       this.modalEl.setAttribute('data-id', contact.id);
-      (
-        this.modalEl.querySelector('input[name="name"]') as HTMLInputElement
-      ).value = contact.name;
-      (
-        this.modalEl.querySelector(
-          'select[name="relation"]',
-        ) as HTMLInputElement
-      ).value = contact.relation.id;
-      (
-        this.modalEl.querySelector('input[name="phone"]') as HTMLInputElement
-      ).value = contact.phone;
-      (
-        this.modalEl.querySelector('input[name="avatar"]') as HTMLInputElement
-      ).value = contact.avatar;
-      (
-        this.modalEl.querySelector('input[name="email"]') as HTMLInputElement
-      ).value = contact.email;
-      (
-        this.modalEl.querySelector('input[name="company"]') as HTMLInputElement
-      ).value = contact.work.company;
-      (
-        this.modalEl.querySelector('input[name="job"]') as HTMLInputElement
-      ).value = contact.work.job;
-      (
-        this.modalEl.querySelector('textarea[name="about"]') as HTMLInputElement
-      ).value = contact.about;
+      (this.modalEl.querySelector('input[name="name"]') as HTMLInputElement).value = contact.name;
+      (this.modalEl.querySelector('select[name="relation"]') as HTMLInputElement).value =
+        contact.relation.id;
+      (this.modalEl.querySelector('input[name="phone"]') as HTMLInputElement).value = contact.phone;
+      (this.modalEl.querySelector('input[name="avatar"]') as HTMLInputElement).value =
+        contact.avatar;
+      (this.modalEl.querySelector('input[name="email"]') as HTMLInputElement).value = contact.email;
+      (this.modalEl.querySelector('input[name="company"]') as HTMLInputElement).value =
+        contact.work.company;
+      (this.modalEl.querySelector('input[name="job"]') as HTMLInputElement).value =
+        contact.work.job;
+      (this.modalEl.querySelector('textarea[name="about"]') as HTMLInputElement).value =
+        contact.about;
     }
   };
 
@@ -110,9 +90,7 @@ class ModalsView {
     this.overlayEl.classList.add('overlay--active');
     this.confirmModalEl.setAttribute('data-id', contact.id);
     (
-      this.confirmModalEl.querySelector(
-        '.confirm-modal__message',
-      ) as HTMLElement
+      this.confirmModalEl.querySelector('.confirm-modal__message') as HTMLElement
     ).innerText = `${VALIDATOR_MESSAGE.CONFIRM_MESSAGE}${contact.name}`;
   };
 
@@ -153,9 +131,7 @@ class ModalsView {
       event.preventDefault();
       const contact: IContactCommon = {
         id: this.modalEl.getAttribute('data-id'),
-        name: (
-          this.modalEl.querySelector("input[name='name']") as HTMLInputElement
-        ).value,
+        name: (this.modalEl.querySelector("input[name='name']") as HTMLInputElement).value,
         relationId: this.modalEl.relation.value,
         phone: this.modalEl.phone.value,
         email: this.modalEl.email.value,
@@ -166,6 +142,7 @@ class ModalsView {
         },
         about: this.modalEl.about.value,
       };
+
       if (this.submissionValidator(contact.id, checkUniqueField)) {
         saveContact(contact);
         this.closeModal();
@@ -190,18 +167,14 @@ class ModalsView {
    * Add event listener for Cancel button in Adding or Editing modal.
    */
   addEventCancelModal = (): void => {
-    this.cancelModalBtnEl.forEach(el =>
-      el.addEventListener('click', () => this.closeModal()),
-    );
+    this.cancelModalBtnEl.forEach(el => el.addEventListener('click', () => this.closeModal()));
   };
 
   /**
    * Add event listener for Cancel button in Confirming modal
    */
   addEventCancelConfirmed = (): void => {
-    this.cancelConfirmBtnEl.addEventListener('click', () =>
-      this.closeConfirmModal(),
-    );
+    this.cancelConfirmBtnEl.addEventListener('click', () => this.closeConfirmModal());
   };
 
   /**
@@ -241,7 +214,7 @@ class ModalsView {
         regex: REGEX.EMAIL,
         requiredMsg: MESSAGE.EMAIL_REQUIRED,
         invalidMsg: MESSAGE.INVALID_EMAIL,
-        takenMsg: MESSAGE.PHONE_TAKEN,
+        takenMsg: MESSAGE.EMAIL_TAKEN,
       },
       {
         name: 'avatar',
@@ -268,24 +241,25 @@ class ModalsView {
         invalidMsg: MESSAGE.INVALID_ABOUT,
       },
     ];
-    formValidator(contactId, validatorFields, checkUniqueField).forEach(
-      field => {
-        const inputEl = field.inputEl;
-        const errorEl = inputEl.nextElementSibling as HTMLElement;
-        switch (field.result) {
-          case ValidatorResultType.valid:
-            inputEl.classList.remove('input--warning');
-            errorEl.textContent = '';
-            errorEl.classList.remove('warning-text--active');
-            break;
-          default:
-            inputEl.classList.add('input--warning');
-            errorEl.textContent = field.message;
-            errorEl.classList.add('warning-text--active');
-            isValid = false;
-        }
-      },
-    );
+
+    formValidator(contactId, validatorFields, checkUniqueField).forEach(field => {
+      const inputEl: HTMLInputElement | HTMLTextAreaElement = field.inputEl;
+      const errorEl: HTMLElement = inputEl.nextElementSibling as HTMLElement;
+
+      switch (field.result) {
+        case ValidatorResultType.valid:
+          inputEl.classList.remove('input--warning');
+          errorEl.textContent = '';
+          errorEl.classList.remove('warning-text--active');
+          break;
+        default:
+          inputEl.classList.add('input--warning');
+          errorEl.textContent = field.message;
+          errorEl.classList.add('warning-text--active');
+          isValid = false;
+      }
+    });
+
     return isValid;
   };
 }

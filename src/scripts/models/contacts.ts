@@ -1,7 +1,7 @@
 import ContactService from '../services/contactService';
 import { IFilter } from '../views/contactView';
 import Contact from './contact';
-import { IContact } from './interfaces/contactIFace';
+import { IContact } from './interfaces/contactInterface';
 
 class ContactsModel {
   private service: ContactService;
@@ -22,7 +22,9 @@ class ContactsModel {
    */
   init = async (): Promise<void> => {
     const data: IContact[] = await this.service.getList();
+
     if (data) this.contactList = this.parseData(data);
+
     this.contactInfo = this.contactList[0];
   };
 
@@ -56,9 +58,7 @@ class ContactsModel {
    * @param {string} id
    */
   setContactInfo = (id: string): void => {
-    const data: Contact | undefined = this.contactList.find(
-      contact => contact.id === id,
-    );
+    const data: Contact | undefined = this.contactList.find(contact => contact.id === id);
     this.contactInfo = data;
   };
 
@@ -91,6 +91,7 @@ class ContactsModel {
   editContact = async (data: IContact): Promise<void> => {
     const contact: Contact = new Contact(data);
     await this.service.edit(contact.id, contact);
+
     this.contactList = this.contactList.map(item => {
       if (item.id === contact.id) {
         this.contactInfo = contact;
@@ -118,13 +119,16 @@ class ContactsModel {
   filterList = (params?: IFilter): Contact[] => {
     if (params) {
       const { filter, searchKey } = params;
+
       const result: Contact[] = this.contactList.filter(contact => {
         let isMatchFilter: boolean = true;
         let isMatchSearch: boolean = true;
+
         // Match with filter
         if (filter.relation !== '0') {
           isMatchFilter = contact.relation.id === filter.relation;
         }
+
         // Match with search key
         if (searchKey) {
           const fields: (keyof Contact)[] = ['name', 'phone', 'email', 'work'];
@@ -132,8 +136,10 @@ class ContactsModel {
             contact[field].toString().toLowerCase().includes(searchKey),
           );
         }
+
         return isMatchFilter && isMatchSearch;
       });
+
       this.contactInfo = result[0];
       return result;
     } else return this.contactList;
@@ -143,6 +149,7 @@ class ContactsModel {
     const contact: Contact | undefined = this.contactList.find(
       contact => contact[fieldName as keyof Contact] === data,
     );
+
     return contact ? contact.id : null;
   };
 }

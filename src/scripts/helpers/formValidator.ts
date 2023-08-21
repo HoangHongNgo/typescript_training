@@ -33,14 +33,17 @@ const formValidator = (
         errorMsg = field.requiredMsg!;
       }
     }
+
     // Check if the field value matches the regex pattern
     else if (!isValidField) {
       fieldResult = ValidatorResultType.invalid;
       errorMsg = field.invalidMsg;
     }
+
     // Check if the field value is not unique
     else if (
       field.takenMsg &&
+      checkUniqueField(field.name, value) &&
       checkUniqueField(field.name, value) !== contactId
     ) {
       fieldResult = ValidatorResultType.existing;
@@ -54,6 +57,7 @@ const formValidator = (
       message: errorMsg,
     });
   }
+
   return result;
 };
 

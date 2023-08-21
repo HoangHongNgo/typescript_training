@@ -1,5 +1,5 @@
 import RelationService from '../services/relationService';
-import { IRelation } from './interfaces/relationIFace';
+import { IRelation } from './interfaces/relationInterface';
 import Relation from './relation';
 
 class RelationsModel {
