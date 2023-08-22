@@ -1,5 +1,5 @@
-import { IContact } from './interfaces/contactIFace';
-import { IRelation } from './interfaces/relationIFace';
+import { IContact } from './interfaces/contactInterface';
+import { IRelation } from './interfaces/relationInterface';
 import { v4 as uuidv4 } from 'uuid';
 import { DEFAULT_AVATAR } from '../constants/constant';
 

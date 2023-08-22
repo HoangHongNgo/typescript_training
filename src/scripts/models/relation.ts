@@ -1,4 +1,4 @@
-import { IRelation } from './interfaces/relationIFace';
+import { IRelation } from './interfaces/relationInterface';
 
 class Relation implements IRelation {
   id: string;

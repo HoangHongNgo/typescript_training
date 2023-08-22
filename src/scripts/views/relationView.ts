@@ -40,8 +40,7 @@ class RelationView {
    * @param {Relation} relation
    */
   renderRelation = (relation: Relation): void => {
-    const relationTemplate: string =
-      RelationTemplate.renderRelationOpt(relation);
+    const relationTemplate: string = RelationTemplate.renderRelationOpt(relation);
     this.relationListEl.innerHTML += relationTemplate;
   };
 
@@ -50,8 +49,7 @@ class RelationView {
    * @param {Relation} relation
    */
   renderRelationDropdown = (relation: Relation): void => {
-    const relationDropDownTemplate: string =
-      RelationTemplate.renderRelationDropDown(relation);
+    const relationDropDownTemplate: string = RelationTemplate.renderRelationDropDown(relation);
     this.relationDropDownEl.innerHTML += relationDropDownTemplate;
   };
 }

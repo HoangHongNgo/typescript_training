@@ -1,3 +1,4 @@
+import { SnackbarType } from '../enums/enums';
 import wait from '../helpers/wait';
 
 class SnackbarView {
@@ -16,10 +17,10 @@ class SnackbarView {
 
   /**
    * Display the snackbar.
-   * @param {String} message
+   * @param {SnackbarType} type
    * @param {String} message
    */
-  showSnackbar = async (type: string, message: string): Promise<void> => {
+  showSnackbar = async (type: SnackbarType, message: string): Promise<void> => {
     this.snackbarEl.classList.add(`snackbar--${type}`);
     this.snackbarMsgEl.innerText = message;
 

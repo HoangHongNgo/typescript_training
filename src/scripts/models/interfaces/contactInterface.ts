@@ -1,4 +1,4 @@
-import { IRelation } from './relationIFace';
+import { IRelation } from './relationInterface';
 
 export interface IContactCommon {
   id: string | null;
