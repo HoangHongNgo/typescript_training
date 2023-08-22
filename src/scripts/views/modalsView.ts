@@ -16,6 +16,7 @@ export interface IValidatorField {
   invalidMsg: string;
   takenMsg?: string;
 }
+
 class ModalsView {
   private modalEl: HTMLFormElement;
   private confirmModalEl: HTMLElement;
