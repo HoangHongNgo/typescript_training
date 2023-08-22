@@ -16,6 +16,7 @@ export interface IValidatorField {
   invalidMsg: string;
   takenMsg?: string;
 }
+
 class ModalsView {
   private modalEl: HTMLFormElement;
   private confirmModalEl: HTMLElement;
@@ -187,6 +188,12 @@ class ModalsView {
     });
   };
 
+  /**
+   * Validator function before summit the form.
+   * @param {string | null} contactId
+   * @param {CheckUniqueFieldFnc} checkUniqueField
+   * @returns is the form valid
+   */
   submissionValidator = (
     contactId: string | null,
     checkUniqueField: CheckUniqueFieldFnc,

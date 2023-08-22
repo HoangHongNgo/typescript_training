@@ -3,7 +3,6 @@
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },

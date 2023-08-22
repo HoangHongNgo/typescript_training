@@ -16,7 +16,7 @@
 
 ## Information:
 
-- Time line: 2023/08/09 - 2023/08/15
+- Time line: 2023/08/09 - 2023/08/18
 - Editor: Visual Studio Code
 - Supported browser: Chrome, Firefox, MS Edge, Opera, Safari lasted
 - Supported screen: Screen width 996px or larger
@@ -54,7 +54,8 @@
 │   │   ├── services/
 │   │   ├── templates/
 │   │   ├── views/
-│   │   └── main.js
+│   │   ├── main.ts
+│   │   └── app.ts
 │   ├── json-server/
 │   │   └── db.json
 │   ├── styles/
