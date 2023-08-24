@@ -1,7 +1,7 @@
 /**
  * API gateway url.
  */
-export const API_GATEWAY_URL: string = 'https://contacts-n9qn.onrender.com';
+export const API_ENDPOINT_URL: string = 'https://contacts-n9qn.onrender.com';
 
 /**
  * API path.

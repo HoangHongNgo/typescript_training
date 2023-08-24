@@ -1,6 +1,6 @@
 import { IContact } from '../models/interfaces/contactInterface';
 import Service from './service';
-import { API_GATEWAY_URL, PATH, QUERY } from '../constants/api';
+import { API_ENDPOINT_URL, PATH, QUERY } from '../constants/api';
 
 class ContactService extends Service<IContact> {
   private query: string;
@@ -9,7 +9,7 @@ class ContactService extends Service<IContact> {
    * Constructor of Service object.
    */
   constructor() {
-    super(API_GATEWAY_URL, PATH.CONTACT);
+    super(API_ENDPOINT_URL, PATH.CONTACT);
     this.query = QUERY.EXPAND_RELATION;
   }
 
